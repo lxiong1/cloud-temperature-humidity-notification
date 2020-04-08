@@ -10,12 +10,13 @@ PROJECT_ID = 'alert-parsec-273000'
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
 
+
 def send_data_to_firestore(event, context):
     event_name = event['attributes']['event']
     event_data = int(base64.b64decode(event['data']).decode('utf-8'))
     threshold_reached = check_threshold_reached(event_name, event_data)
 
-    if check_application_initialized() == False:
+    if check_application_initialized() is False:
         set_credentials()
 
     climate_document = {
@@ -37,7 +38,7 @@ def send_data_to_firestore(event, context):
         )
     )
 
-    if threshold_reached == True:
+    if threshold_reached is True:
         publish_threshold_reached_message(
             craft_topic_message(
                 event_name,
@@ -45,6 +46,7 @@ def send_data_to_firestore(event, context):
             ),
             event_name
         )
+
 
 def check_threshold_reached(event_name, event_data):
     if event_name == TEMPERATURE and (event_data > 75 or event_data < 65):
@@ -54,11 +56,13 @@ def check_threshold_reached(event_name, event_data):
     else:
         return False
 
+
 def check_application_initialized():
     if firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps:
         return True
     else:
         return False
+
 
 def set_credentials():
     credential = credentials.ApplicationDefault()
@@ -67,19 +71,21 @@ def set_credentials():
         {
             'projectId': PROJECT_ID,
         }
-    ) 
+    )
+
 
 def publish_threshold_reached_message(topic_message, event_name):
     topic_name = 'threshold-reached'
     publisher_client = pubsub_v1.PublisherClient()
 
-    future = publisher_client.publish(
+    publisher_client.publish(
         publisher_client.topic_path(PROJECT_ID, topic_name),
         topic_message,
         origin='Function: send_data_to_firestore'
     )
 
-    print(f'{event_name} threshold has been reached, publishing message to topic "{topic_name}"')
+    print(f'{event_name.capitalize()} threshold has been reached, publishing message to topic "{topic_name}"')
+
 
 def craft_topic_message(event_name, event_data):
     if event_name == TEMPERATURE:

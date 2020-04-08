@@ -12,6 +12,6 @@ void loop(void) {
   int humidityPercentage = sensor.readHumidity();
 
   Particle.publish("temperature", String(fahrenheit));
-  Particle.publish("humidity", String(29));
+  Particle.publish("humidity", String(humidityPercentage));
   delay(10000);
 }

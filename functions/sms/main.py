@@ -1,6 +1,6 @@
 import base64
 from dateutil import parser
-from datetime import datetime,timezone
+from datetime import datetime, timedelta, timezone
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import firebase_admin
@@ -14,11 +14,15 @@ PROJECT_ID = 'alert-parsec-273000'
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
 
+
 def send_sms_message(event, context):
+    if check_valid_time_range() is False:
+        return ''
+
     event_data = base64.b64decode(event['data']).decode('utf-8')
     climate_type = TEMPERATURE if TEMPERATURE in event_data else HUMIDITY
 
-    if check_sms_message_gap_valid(climate_type) == False:
+    if check_sms_message_within_valid_gap(climate_type) is False:
         return ''
 
     try:
@@ -52,8 +56,22 @@ def send_sms_message(event, context):
     finally:
         server.quit()
 
-def check_sms_message_gap_valid(climate_type):
-    if check_application_initialized() == False:
+
+def check_valid_time_range():
+    today = datetime.today().strftime('%Y-%m-%d')
+    tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+    start = parser.parse(f'{today}T11:00:00.000Z')
+    end = parser.parse(f'{tomorrow}T02:00:00.000Z')
+    timestamp_now = datetime.now(timezone.utc)
+
+    if start <= timestamp_now <= end:
+        return False
+
+    return True
+
+
+def check_sms_message_within_valid_gap(climate_type):
+    if check_application_initialized() is False:
         set_credentials()
 
     firestore_client = firestore.client()
@@ -75,8 +93,9 @@ def check_sms_message_gap_valid(climate_type):
 
     return True
 
+
 def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):
-    if check_application_initialized() == False:
+    if check_application_initialized() is False:
         set_credentials()
 
     contact_attempt_history_document = {
@@ -98,11 +117,13 @@ def send_contact_attempt_history_to_firestore(climate_type, status, context_time
         )
     )
 
+
 def check_application_initialized():
     if firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps:
         return True
     else:
         return False
+
 
 def set_credentials():
     credential = credentials.ApplicationDefault()
@@ -113,6 +134,7 @@ def set_credentials():
         }
     )
 
+
 def get_sms_password():
     secret_manager_client = secretmanager.SecretManagerServiceClient()
     sms_password = secret_manager_client \
@@ -122,4 +144,3 @@ def get_sms_password():
         .decode("utf-8")
 
     return sms_password
-
