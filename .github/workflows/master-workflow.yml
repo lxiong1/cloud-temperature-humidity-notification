@@ -10,7 +10,12 @@ jobs:
     name: Deploy Functions to Google Cloud Platform
     runs-on: ubuntu-latest
     steps:
-      - uses: actions-hub/gcloud@master
-        run: |
-          cd functions/firestore && gcloud functions deploy send_data_to_firestore --trigger-topic event-data-stream --runtime python37
-          cd functions/sms && gcloud functions deploy send_sms_message --trigger-topic threshold-reached --runtime python37
+      - uses: actions/checkout@v2
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          service_account_email: ${{ secrets.GCLOUD_EMAIL }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+      - run: cd functions/firestore && gcloud functions deploy send_data_to_firestore --trigger-topic event-data-stream --runtime python37
+      - run: cd functions/sms && gcloud functions deploy send_sms_message --trigger-topic threshold-reached --runtime python37
+    
