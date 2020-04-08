@@ -10,6 +10,7 @@ jobs:
     name: Deploy Functions to Google Cloud Platform
     runs-on: ubuntu-latest
     steps:
-      - name: hello
-        run: echo 'hello'
-    
+      - uses: actions-hub/gcloud@master
+        run: |
+          cd functions/firestore && gcloud functions deploy send_data_to_firestore --trigger-topic event-data-stream --runtime python37
+          cd functions/sms && gcloud functions deploy send_sms_message --trigger-topic threshold-reached --runtime python37
