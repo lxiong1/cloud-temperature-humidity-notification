@@ -16,8 +16,8 @@ def send_data_to_firestore(event, context):
     event_data = int(base64.b64decode(event['data']).decode('utf-8'))
     threshold_reached = check_threshold_reached(event_name, event_data)
 
-    if check_application_initialized() is False:
-        set_credentials()
+    if check_firestore_initialized() is False:
+        set_firestore_credentials()
 
     climate_document = {
         'degreesFahrenheit' if event_name == TEMPERATURE else 'relativeHumidity': event_data,
@@ -57,14 +57,14 @@ def check_threshold_reached(event_name, event_data):
         return False
 
 
-def check_application_initialized():
+def check_firestore_initialized():
     if firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps:
         return True
     else:
         return False
 
 
-def set_credentials():
+def set_firestore_credentials():
     credential = credentials.ApplicationDefault()
     firebase_admin.initialize_app(
         credential,

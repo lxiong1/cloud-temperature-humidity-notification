@@ -17,12 +17,14 @@ HUMIDITY = 'humidity'
 
 def send_sms_message(event, context):
     if check_valid_time_range() is False:
+        print('SMS message will not be sent after 9 PM or before 6 AM')
         return ''
 
     event_data = base64.b64decode(event['data']).decode('utf-8')
     climate_type = TEMPERATURE if TEMPERATURE in event_data else HUMIDITY
 
     if check_sms_message_within_valid_gap(climate_type) is False:
+        print(f'SMS message for {climate_type} has already been sent within the past hour')
         return ''
 
     try:
@@ -64,15 +66,15 @@ def check_valid_time_range():
     end = parser.parse(f'{tomorrow}T02:00:00.000Z')
     timestamp_now = datetime.now(timezone.utc)
 
-    if start <= timestamp_now <= end:
+    if timestamp_now <= start and timestamp_now >= end:
         return False
 
     return True
 
 
 def check_sms_message_within_valid_gap(climate_type):
-    if check_application_initialized() is False:
-        set_credentials()
+    if check_firestore_initialized() is False:
+        set_firestore_credentials()
 
     firestore_client = firestore.client()
     contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
@@ -83,8 +85,13 @@ def check_sms_message_within_valid_gap(climate_type):
         .limit(1) \
         .stream()
 
-    timestamp_record = [document.to_dict()['timestamp'] for document in contact_attempt_latest_successful_record][0]
+    timestamp_record_list = [document.to_dict()['timestamp'] for document in contact_attempt_latest_successful_record]
+
+    if not timestamp_record_list:
+        return True
+
     timestamp_now = datetime.now(timezone.utc)
+    timestamp_record = timestamp_record_list[0]
     timestamp_difference = timestamp_now - timestamp_record
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
@@ -95,8 +102,8 @@ def check_sms_message_within_valid_gap(climate_type):
 
 
 def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):
-    if check_application_initialized() is False:
-        set_credentials()
+    if check_firestore_initialized() is False:
+        set_firestore_credentials()
 
     contact_attempt_history_document = {
         'climateType': climate_type,
@@ -118,14 +125,14 @@ def send_contact_attempt_history_to_firestore(climate_type, status, context_time
     )
 
 
-def check_application_initialized():
+def check_firestore_initialized():
     if firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps:
         return True
     else:
         return False
 
 
-def set_credentials():
+def set_firestore_credentials():
     credential = credentials.ApplicationDefault()
     firebase_admin.initialize_app(
         credential,
