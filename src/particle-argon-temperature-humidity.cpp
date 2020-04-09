@@ -8,10 +8,13 @@
 
 void setup();
 void loop(void);
+boolean isEndOfDay();
 #line 3 "/home/luexiong/projects/particle-argon-temperature-humidity/src/particle-argon-temperature-humidity.ino"
 Adafruit_Si7021 sensor = Adafruit_Si7021();
+bool updated = false;
 
 void setup() {
+  Serial.begin(9600);
   sensor.begin();
 }
 
@@ -23,4 +26,24 @@ void loop(void) {
   Particle.publish("temperature", String(fahrenheit));
   Particle.publish("humidity", String(humidityPercentage));
   delay(10000);
+
+  if (isEndOfDay() == true) {
+    Particle.publish("climateAverageUpdate", "Updating climate data file");
+  }
+}
+
+boolean isEndOfDay() {
+  int currentHour = Time.hourFormat12(Time.now());
+
+  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
+    updated = true;
+    return true;
+  }
+
+  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
+    updated = false;
+    return false;
+  }
+
+  return false;
 }

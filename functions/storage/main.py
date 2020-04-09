@@ -36,6 +36,14 @@ def publish_updated_climate_file():
 def append_climate_averages_to_file():
     temperature_data = get_climate_data_today(TEMPERATURE)
     humidity_data = get_climate_data_today(HUMIDITY)
+
+    print(
+        f'''
+        Temperature_data_list: {temperature_data}
+        Humidity_data_list: {humidity_data}
+        '''
+    )
+
     temperature_average = calculate_average(temperature_data)
     humidity_average = calculate_average(humidity_data)
 
@@ -70,6 +78,7 @@ def get_climate_data_today(climate_type):
         .end_at({TIMESTAMP: end}) \
         .stream()
 
+    print([document.to_dict()[climate_type] for document in climate_today_documents])
     return [document.to_dict()[climate_type] for document in climate_today_documents]
 
 
