@@ -22,7 +22,9 @@ The following is the breadboard schematic:
     - Functions
     - PubSub
     - Firestore
+    - Storage
     - Secret Manager
+- Github Actions
 
 ## SMS Notification Rules
 - Minimum 1 hour gap between each message per climate type
