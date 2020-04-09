@@ -80,7 +80,7 @@ def check_sms_message_within_valid_gap(climate_type):
     contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
     contact_attempt_latest_successful_record = contact_attempt_history_collection \
         .where('climateType', '==', climate_type) \
-        .where('contact_attempt_successful', '==', True) \
+        .where('contactAttemptSuccessful', '==', True) \
         .order_by('timestamp', direction=firestore.Query.DESCENDING) \
         .limit(1) \
         .stream()
@@ -107,7 +107,7 @@ def send_contact_attempt_history_to_firestore(climate_type, status, context_time
 
     contact_attempt_history_document = {
         'climateType': climate_type,
-        'contact_attempt_successful': status,
+        'contactAttemptSuccessful': status,
         'timestamp': parser.parse(context_timestamp)
     }
 
