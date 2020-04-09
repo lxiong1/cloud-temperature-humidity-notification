@@ -75,13 +75,11 @@ def set_firestore_credentials():
 
 
 def publish_threshold_reached_message(topic_message, event_name):
-    topic_name = 'threshold-reached'
+    topic_name = 'threshold'
     publisher_client = pubsub_v1.PublisherClient()
-
     publisher_client.publish(
         publisher_client.topic_path(PROJECT_ID, topic_name),
-        topic_message,
-        origin='Function: send_data_to_firestore'
+        topic_message
     )
 
     print(f'{event_name.capitalize()} threshold has been reached, publishing message to topic "{topic_name}"')

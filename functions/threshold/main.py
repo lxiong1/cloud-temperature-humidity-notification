@@ -78,20 +78,20 @@ def check_sms_message_within_valid_gap(climate_type):
 
     firestore_client = firestore.client()
     contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
-    contact_attempt_latest_successful_record = contact_attempt_history_collection \
+    contact_attempt_latest_successful_document = contact_attempt_history_collection \
         .where('climateType', '==', climate_type) \
         .where('contactAttemptSuccessful', '==', True) \
         .order_by('timestamp', direction=firestore.Query.DESCENDING) \
         .limit(1) \
         .stream()
 
-    timestamp_record_list = [document.to_dict()['timestamp'] for document in contact_attempt_latest_successful_record]
+    timestamp_values = [document.to_dict()['timestamp'] for document in contact_attempt_latest_successful_document]
 
-    if not timestamp_record_list:
+    if not timestamp_values:
         return True
 
     timestamp_now = datetime.now(timezone.utc)
-    timestamp_record = timestamp_record_list[0]
+    timestamp_record = timestamp_values[0]
     timestamp_difference = timestamp_now - timestamp_record
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
@@ -144,10 +144,9 @@ def set_firestore_credentials():
 
 def get_sms_password():
     secret_manager_client = secretmanager.SecretManagerServiceClient()
-    sms_password = secret_manager_client \
+
+    return secret_manager_client \
         .access_secret_version('projects/203517643656/secrets/sms/versions/1') \
         .payload \
         .data \
         .decode("utf-8")
-
-    return sms_password

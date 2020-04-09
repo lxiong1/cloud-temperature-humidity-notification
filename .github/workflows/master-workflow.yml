@@ -34,7 +34,10 @@ jobs:
       - name: Deploy Trigger Functions
         run: |
           pushd .
-          cd functions/firestore && gcloud functions deploy send_data_to_firestore --trigger-topic event-data-stream --runtime python37
+          cd functions/event-data-stream && gcloud functions deploy send_data_to_firestore --trigger-topic event-data-stream --runtime python37
           popd
-          cd functions/sms && gcloud functions deploy send_sms_message --trigger-topic threshold-reached --runtime python37
+          pushd .
+          cd functions/threshold && gcloud functions deploy send_sms_message --trigger-topic threshold --runtime python37
+          popd
+          cd functions/storage && gcloud functions deploy send_climate_data_file_to_storage --trigger-topic storage --runtime python37
     
