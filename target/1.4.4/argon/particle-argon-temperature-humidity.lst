@@ -19,23 +19,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .module_info_crc 00000004  000d77b0  000d77b0  000177b0  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .debug_info   000ed2b6  00000000  00000000  000177b4  2**0
+  8 .debug_info   000ed317  00000000  00000000  000177b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_abbrev 00012754  00000000  00000000  00104a6a  2**0
+  9 .debug_abbrev 00012709  00000000  00000000  00104acb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00002718  00000000  00000000  001171be  2**0
+ 10 .debug_aranges 00002710  00000000  00000000  001171d4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0003557d  00000000  00000000  001198d6  2**0
+ 11 .debug_macro  0003557d  00000000  00000000  001198e4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   0002ba7f  00000000  00000000  0014ee53  2**0
+ 12 .debug_line   0002ba68  00000000  00000000  0014ee61  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0010bc4a  00000000  00000000  0017a8d2  2**0
+ 13 .debug_str    0010bc4a  00000000  00000000  0017a8c9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc    00020f67  00000000  00000000  0028651c  2**0
+ 14 .debug_loc    00020f2b  00000000  00000000  00286513  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_ranges 00004b10  00000000  00000000  002a7483  2**0
+ 15 .debug_ranges 00004af0  00000000  00000000  002a743e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  0000d678  00000000  00000000  002abf94  2**2
+ 16 .debug_frame  0000d660  00000000  00000000  002abf30  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -136,7 +136,7 @@ void module_user_init()
  */
 void module_user_setup() {
     setup();
-   d4088:	f000 b824 	b.w	d40d4 <setup>
+   d4088:	f000 b816 	b.w	d40b8 <setup>
 
 000d408c <module_user_loop>:
 }
@@ -144,7 +144,7 @@ void module_user_setup() {
 void module_user_loop() {
    d408c:	b508      	push	{r3, lr}
     loop();
-   d408e:	f000 f867 	bl	d4160 <loop>
+   d408e:	f000 f859 	bl	d4144 <loop>
     _post_loop();
 }
    d4092:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
@@ -190,309 +190,283 @@ void __cxa_guard_release (__guard *g) {*(char *)g = 1;};
    d40b4:	4770      	bx	lr
 	...
 
-000d40b8 <_ZN10CloudClass7publishEPKcS1_.isra.4>:
-// Deprecated methods
-inline particle::Future<bool> CloudClass::publish(const char* name) {
-    return publish(name, PUBLIC);
-}
-
-inline particle::Future<bool> CloudClass::publish(const char* name, const char* data) {
-   d40b8:	b513      	push	{r0, r1, r4, lr}
-   d40ba:	4b05      	ldr	r3, [pc, #20]	; (d40d0 <_ZN10CloudClass7publishEPKcS1_.isra.4+0x18>)
-   d40bc:	781b      	ldrb	r3, [r3, #0]
-        return publish(eventName, eventData, DEFAULT_CLOUD_EVENT_TTL, flags1, flags2);
-    }
-
-    inline particle::Future<bool> publish(const char *eventName, const char *eventData, int ttl, PublishFlags flags1, PublishFlags flags2 = PublishFlags())
-    {
-        return publish_event(eventName, eventData, ttl, flags1 | flags2);
-   d40be:	f88d 3000 	strb.w	r3, [sp]
-   d40c2:	233c      	movs	r3, #60	; 0x3c
-// Deprecated methods
-inline particle::Future<bool> CloudClass::publish(const char* name) {
-    return publish(name, PUBLIC);
-}
-
-inline particle::Future<bool> CloudClass::publish(const char* name, const char* data) {
-   d40c4:	4604      	mov	r4, r0
-        return publish(eventName, eventData, DEFAULT_CLOUD_EVENT_TTL, flags1, flags2);
-    }
-
-    inline particle::Future<bool> publish(const char *eventName, const char *eventData, int ttl, PublishFlags flags1, PublishFlags flags2 = PublishFlags())
-    {
-        return publish_event(eventName, eventData, ttl, flags1 | flags2);
-   d40c6:	f001 f963 	bl	d5390 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE>
-    return publish(name, PUBLIC);
-}
-
-inline particle::Future<bool> CloudClass::publish(const char* name, const char* data) {
-    return publish(name, data, PUBLIC);
-}
-   d40ca:	4620      	mov	r0, r4
-   d40cc:	b002      	add	sp, #8
-   d40ce:	bd10      	pop	{r4, pc}
-   d40d0:	2003e36c 	.word	0x2003e36c
-
-000d40d4 <setup>:
+000d40b8 <setup>:
 #include "Adafruit_Si7021.h" 
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 bool updated = false;
 
 void setup() {
-   d40d4:	b508      	push	{r3, lr}
+   d40b8:	b508      	push	{r3, lr}
   Serial.begin(9600);
-   d40d6:	f000 ff71 	bl	d4fbc <_Z16_fetch_usbserialv>
-   d40da:	f44f 5116 	mov.w	r1, #9600	; 0x2580
-   d40de:	f000 ff61 	bl	d4fa4 <_ZN9USBSerial5beginEl>
+   d40ba:	f000 ff7f 	bl	d4fbc <_Z16_fetch_usbserialv>
+   d40be:	f44f 5116 	mov.w	r1, #9600	; 0x2580
+   d40c2:	f000 ff6f 	bl	d4fa4 <_ZN9USBSerial5beginEl>
   sensor.begin();
-   d40e2:	4802      	ldr	r0, [pc, #8]	; (d40ec <setup+0x18>)
+   d40c6:	4802      	ldr	r0, [pc, #8]	; (d40d0 <setup+0x18>)
 }
-   d40e4:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+   d40c8:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 bool updated = false;
 
 void setup() {
   Serial.begin(9600);
   sensor.begin();
-   d40e8:	f000 ba39 	b.w	d455e <_ZN15Adafruit_Si70215beginEv>
-   d40ec:	2003e360 	.word	0x2003e360
+   d40cc:	f000 ba47 	b.w	d455e <_ZN15Adafruit_Si70215beginEv>
+   d40d0:	2003e360 	.word	0x2003e360
 
-000d40f0 <_Z10isEndOfDayv>:
+000d40d4 <_Z10isEndOfDayv>:
   if (isEndOfDay() == true) {
-    Particle.publish("climateAverageUpdate", "Updating climate data file");
+    Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
   }
 }
 
 boolean isEndOfDay() {
-   d40f0:	b570      	push	{r4, r5, r6, lr}
+   d40d4:	b570      	push	{r4, r5, r6, lr}
   int currentHour = Time.hourFormat12(Time.now());
-   d40f2:	f001 fbcc 	bl	d588e <_ZN9TimeClass3nowEv>
+   d40d6:	f001 fbda 	bl	d588e <_ZN9TimeClass3nowEv>
 
-  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
-   d40f6:	4c0e      	ldr	r4, [pc, #56]	; (d4130 <_Z10isEndOfDayv+0x40>)
-    Particle.publish("climateAverageUpdate", "Updating climate data file");
-  }
-}
-
-boolean isEndOfDay() {
-  int currentHour = Time.hourFormat12(Time.now());
-   d40f8:	f001 fb8e 	bl	d5818 <_ZN9TimeClass12hourFormat12El>
-
-  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
-   d40fc:	7823      	ldrb	r3, [r4, #0]
-    Particle.publish("climateAverageUpdate", "Updating climate data file");
+  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
+   d40da:	4c0e      	ldr	r4, [pc, #56]	; (d4114 <_Z10isEndOfDayv+0x40>)
+    Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
   }
 }
 
 boolean isEndOfDay() {
   int currentHour = Time.hourFormat12(Time.now());
-   d40fe:	4605      	mov	r5, r0
-   d4100:	4626      	mov	r6, r4
+   d40dc:	f001 fb9c 	bl	d5818 <_ZN9TimeClass12hourFormat12El>
 
-  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
-   d4102:	b93b      	cbnz	r3, d4114 <_Z10isEndOfDayv+0x24>
-   d4104:	2800      	cmp	r0, #0
-   d4106:	dd05      	ble.n	d4114 <_Z10isEndOfDayv+0x24>
-   d4108:	f001 fbd1 	bl	d58ae <_ZN9TimeClass4isPMEv>
-   d410c:	2801      	cmp	r0, #1
-   d410e:	d101      	bne.n	d4114 <_Z10isEndOfDayv+0x24>
+  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
+   d40e0:	7823      	ldrb	r3, [r4, #0]
+    Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
+  }
+}
+
+boolean isEndOfDay() {
+  int currentHour = Time.hourFormat12(Time.now());
+   d40e2:	4605      	mov	r5, r0
+   d40e4:	4626      	mov	r6, r4
+
+  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
+   d40e6:	b93b      	cbnz	r3, d40f8 <_Z10isEndOfDayv+0x24>
+   d40e8:	2808      	cmp	r0, #8
+   d40ea:	dd05      	ble.n	d40f8 <_Z10isEndOfDayv+0x24>
+   d40ec:	f001 fbdf 	bl	d58ae <_ZN9TimeClass4isPMEv>
+   d40f0:	2801      	cmp	r0, #1
+   d40f2:	d101      	bne.n	d40f8 <_Z10isEndOfDayv+0x24>
     updated = true;
-   d4110:	7020      	strb	r0, [r4, #0]
+   d40f4:	7020      	strb	r0, [r4, #0]
     return true;
+   d40f6:	bd70      	pop	{r4, r5, r6, pc}
+  }
+
+  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
+   d40f8:	7833      	ldrb	r3, [r6, #0]
+   d40fa:	b10b      	cbz	r3, d4100 <_Z10isEndOfDayv+0x2c>
+   d40fc:	2d05      	cmp	r5, #5
+   d40fe:	dc01      	bgt.n	d4104 <_Z10isEndOfDayv+0x30>
+    updated = false;
+    return false;
+  }
+
+  return false;
+   d4100:	2000      	movs	r0, #0
+   d4102:	bd70      	pop	{r4, r5, r6, pc}
+  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
+    updated = true;
+    return true;
+  }
+
+  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
+   d4104:	f001 fbca 	bl	d589c <_ZN9TimeClass4isAMEv>
+   d4108:	2801      	cmp	r0, #1
+   d410a:	d1f9      	bne.n	d4100 <_Z10isEndOfDayv+0x2c>
+    updated = false;
+   d410c:	4b01      	ldr	r3, [pc, #4]	; (d4114 <_Z10isEndOfDayv+0x40>)
+   d410e:	2000      	movs	r0, #0
+   d4110:	7018      	strb	r0, [r3, #0]
+    return false;
+  }
+
+  return false;
+}
    d4112:	bd70      	pop	{r4, r5, r6, pc}
-  }
+   d4114:	2003e36d 	.word	0x2003e36d
 
-  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
-   d4114:	7833      	ldrb	r3, [r6, #0]
-   d4116:	b10b      	cbz	r3, d411c <_Z10isEndOfDayv+0x2c>
-   d4118:	2d05      	cmp	r5, #5
-   d411a:	dc01      	bgt.n	d4120 <_Z10isEndOfDayv+0x30>
-    updated = false;
-    return false;
-  }
-
-  return false;
-   d411c:	2000      	movs	r0, #0
-   d411e:	bd70      	pop	{r4, r5, r6, pc}
-  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
-    updated = true;
-    return true;
-  }
-
-  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
-   d4120:	f001 fbbc 	bl	d589c <_ZN9TimeClass4isAMEv>
-   d4124:	2801      	cmp	r0, #1
-   d4126:	d1f9      	bne.n	d411c <_Z10isEndOfDayv+0x2c>
-    updated = false;
-   d4128:	4b01      	ldr	r3, [pc, #4]	; (d4130 <_Z10isEndOfDayv+0x40>)
-   d412a:	2000      	movs	r0, #0
-   d412c:	7018      	strb	r0, [r3, #0]
-    return false;
-  }
-
-  return false;
-}
-   d412e:	bd70      	pop	{r4, r5, r6, pc}
-   d4130:	2003e36d 	.word	0x2003e36d
-
-000d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>:
+000d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>:
       explicit __shared_count(const __weak_count<_Lp>& __r);
 
       // Does not throw if __r._M_get_use_count() == 0, caller must check.
       explicit __shared_count(const __weak_count<_Lp>& __r, std::nothrow_t);
 
       ~__shared_count() noexcept
-   d4134:	b538      	push	{r3, r4, r5, lr}
+   d4118:	b538      	push	{r3, r4, r5, lr}
       {
 	if (_M_pi != nullptr)
-   d4136:	6804      	ldr	r4, [r0, #0]
+   d411a:	6804      	ldr	r4, [r0, #0]
       explicit __shared_count(const __weak_count<_Lp>& __r);
 
       // Does not throw if __r._M_get_use_count() == 0, caller must check.
       explicit __shared_count(const __weak_count<_Lp>& __r, std::nothrow_t);
 
       ~__shared_count() noexcept
-   d4138:	4605      	mov	r5, r0
+   d411c:	4605      	mov	r5, r0
       {
 	if (_M_pi != nullptr)
-   d413a:	b17c      	cbz	r4, d415c <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
+   d411e:	b17c      	cbz	r4, d4140 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
 
   template<>
     inline void
     _Sp_counted_base<_S_single>::_M_release() noexcept
     {
       if (--_M_use_count == 0)
-   d413c:	6863      	ldr	r3, [r4, #4]
-   d413e:	3b01      	subs	r3, #1
-   d4140:	6063      	str	r3, [r4, #4]
-   d4142:	b95b      	cbnz	r3, d415c <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
+   d4120:	6863      	ldr	r3, [r4, #4]
+   d4122:	3b01      	subs	r3, #1
+   d4124:	6063      	str	r3, [r4, #4]
+   d4126:	b95b      	cbnz	r3, d4140 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
         {
           _M_dispose();
-   d4144:	6823      	ldr	r3, [r4, #0]
-   d4146:	4620      	mov	r0, r4
-   d4148:	689b      	ldr	r3, [r3, #8]
-   d414a:	4798      	blx	r3
+   d4128:	6823      	ldr	r3, [r4, #0]
+   d412a:	4620      	mov	r0, r4
+   d412c:	689b      	ldr	r3, [r3, #8]
+   d412e:	4798      	blx	r3
           if (--_M_weak_count == 0)
-   d414c:	68a3      	ldr	r3, [r4, #8]
-   d414e:	3b01      	subs	r3, #1
-   d4150:	60a3      	str	r3, [r4, #8]
-   d4152:	b91b      	cbnz	r3, d415c <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
+   d4130:	68a3      	ldr	r3, [r4, #8]
+   d4132:	3b01      	subs	r3, #1
+   d4134:	60a3      	str	r3, [r4, #8]
+   d4136:	b91b      	cbnz	r3, d4140 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev+0x28>
             _M_destroy();
-   d4154:	6823      	ldr	r3, [r4, #0]
-   d4156:	4620      	mov	r0, r4
-   d4158:	68db      	ldr	r3, [r3, #12]
-   d415a:	4798      	blx	r3
+   d4138:	6823      	ldr	r3, [r4, #0]
+   d413a:	4620      	mov	r0, r4
+   d413c:	68db      	ldr	r3, [r3, #12]
+   d413e:	4798      	blx	r3
 
       ~__shared_count() noexcept
       {
 	if (_M_pi != nullptr)
 	  _M_pi->_M_release();
       }
-   d415c:	4628      	mov	r0, r5
-   d415e:	bd38      	pop	{r3, r4, r5, pc}
+   d4140:	4628      	mov	r0, r5
+   d4142:	bd38      	pop	{r3, r4, r5, pc}
 
-000d4160 <loop>:
+000d4144 <loop>:
 void setup() {
   Serial.begin(9600);
   sensor.begin();
 }
 
 void loop(void) {
-   d4160:	b500      	push	{lr}
-   d4162:	ed2d 8b02 	vpush	{d8}
+   d4144:	b510      	push	{r4, lr}
+   d4146:	ed2d 8b02 	vpush	{d8}
   int celsius = sensor.readTemperature();
-   d4166:	4825      	ldr	r0, [pc, #148]	; (d41fc <loop+0x9c>)
+   d414a:	482b      	ldr	r0, [pc, #172]	; (d41f8 <loop+0xb4>)
+   d414c:	4c2b      	ldr	r4, [pc, #172]	; (d41fc <loop+0xb8>)
 void setup() {
   Serial.begin(9600);
   sensor.begin();
 }
 
 void loop(void) {
-   d4168:	b087      	sub	sp, #28
+   d414e:	b088      	sub	sp, #32
   int celsius = sensor.readTemperature();
-   d416a:	f000 f8b1 	bl	d42d0 <_ZN15Adafruit_Si702115readTemperatureEv>
+   d4150:	f000 f8be 	bl	d42d0 <_ZN15Adafruit_Si702115readTemperatureEv>
   int fahrenheit = (celsius * 9 / 5) + 32;
   int humidityPercentage = sensor.readHumidity();
-   d416e:	4823      	ldr	r0, [pc, #140]	; (d41fc <loop+0x9c>)
+   d4154:	4828      	ldr	r0, [pc, #160]	; (d41f8 <loop+0xb4>)
   Serial.begin(9600);
   sensor.begin();
 }
 
 void loop(void) {
   int celsius = sensor.readTemperature();
-   d4170:	eeb0 8a40 	vmov.f32	s16, s0
+   d4156:	eeb0 8a40 	vmov.f32	s16, s0
   int fahrenheit = (celsius * 9 / 5) + 32;
   int humidityPercentage = sensor.readHumidity();
-   d4174:	f000 f866 	bl	d4244 <_ZN15Adafruit_Si702112readHumidityEv>
+   d415a:	f000 f873 	bl	d4244 <_ZN15Adafruit_Si702112readHumidityEv>
 
-  Particle.publish("temperature", String(fahrenheit));
-   d4178:	eefd 7ac8 	vcvt.s32.f32	s15, s16
-   d417c:	2305      	movs	r3, #5
-   d417e:	ee17 1a90 	vmov	r1, s15
-   d4182:	220a      	movs	r2, #10
-   d4184:	eb01 01c1 	add.w	r1, r1, r1, lsl #3
+  Particle.publish("temperature", String(fahrenheit), PRIVATE);
+   d415e:	eefd 7ac8 	vcvt.s32.f32	s15, s16
+   d4162:	2305      	movs	r3, #5
+   d4164:	ee17 1a90 	vmov	r1, s15
+   d4168:	220a      	movs	r2, #10
+   d416a:	eb01 01c1 	add.w	r1, r1, r1, lsl #3
+   d416e:	a804      	add	r0, sp, #16
+   d4170:	fb91 f1f3 	sdiv	r1, r1, r3
+   d4174:	3120      	adds	r1, #32
+}
+
+void loop(void) {
+  int celsius = sensor.readTemperature();
+  int fahrenheit = (celsius * 9 / 5) + 32;
+  int humidityPercentage = sensor.readHumidity();
+   d4176:	eef0 8a40 	vmov.f32	s17, s0
+
+  Particle.publish("temperature", String(fahrenheit), PRIVATE);
+   d417a:	f001 fc69 	bl	d5a50 <_ZN6StringC1Eih>
+   d417e:	7823      	ldrb	r3, [r4, #0]
+        return publish(eventName, eventData, DEFAULT_CLOUD_EVENT_TTL, flags1, flags2);
+    }
+
+    inline particle::Future<bool> publish(const char *eventName, const char *eventData, int ttl, PublishFlags flags1, PublishFlags flags2 = PublishFlags())
+    {
+        return publish_event(eventName, eventData, ttl, flags1 | flags2);
+   d4180:	9a04      	ldr	r2, [sp, #16]
+   d4182:	491f      	ldr	r1, [pc, #124]	; (d4200 <loop+0xbc>)
+   d4184:	f88d 3000 	strb.w	r3, [sp]
    d4188:	a802      	add	r0, sp, #8
-   d418a:	fb91 f1f3 	sdiv	r1, r1, r3
-   d418e:	3120      	adds	r1, #32
-}
-
-void loop(void) {
-  int celsius = sensor.readTemperature();
-  int fahrenheit = (celsius * 9 / 5) + 32;
-  int humidityPercentage = sensor.readHumidity();
-   d4190:	eef0 8a40 	vmov.f32	s17, s0
-
-  Particle.publish("temperature", String(fahrenheit));
-   d4194:	f001 fc5c 	bl	d5a50 <_ZN6StringC1Eih>
-   d4198:	9a02      	ldr	r2, [sp, #8]
-   d419a:	4919      	ldr	r1, [pc, #100]	; (d4200 <loop+0xa0>)
-   d419c:	4668      	mov	r0, sp
-   d419e:	f7ff ff8b 	bl	d40b8 <_ZN10CloudClass7publishEPKcS1_.isra.4>
+   d418a:	233c      	movs	r3, #60	; 0x3c
+   d418c:	f001 f900 	bl	d5390 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE>
 	: _M_ptr(__p), _M_refcount(__r._M_refcount) // never throws
 	{ }
 
       __shared_ptr(const __shared_ptr&) noexcept = default;
       __shared_ptr& operator=(const __shared_ptr&) noexcept = default;
       ~__shared_ptr() = default;
-   d41a2:	a801      	add	r0, sp, #4
-   d41a4:	f7ff ffc6 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
-   d41a8:	a802      	add	r0, sp, #8
-   d41aa:	f001 fbf9 	bl	d59a0 <_ZN6StringD1Ev>
-  Particle.publish("humidity", String(humidityPercentage));
-   d41ae:	eefd 7ae8 	vcvt.s32.f32	s15, s17
-   d41b2:	220a      	movs	r2, #10
-   d41b4:	ee17 1a90 	vmov	r1, s15
-   d41b8:	a802      	add	r0, sp, #8
-   d41ba:	f001 fc49 	bl	d5a50 <_ZN6StringC1Eih>
-   d41be:	9a02      	ldr	r2, [sp, #8]
-   d41c0:	4910      	ldr	r1, [pc, #64]	; (d4204 <loop+0xa4>)
-   d41c2:	4668      	mov	r0, sp
-   d41c4:	f7ff ff78 	bl	d40b8 <_ZN10CloudClass7publishEPKcS1_.isra.4>
-   d41c8:	a801      	add	r0, sp, #4
-   d41ca:	f7ff ffb3 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
-   d41ce:	a802      	add	r0, sp, #8
-   d41d0:	f001 fbe6 	bl	d59a0 <_ZN6StringD1Ev>
+   d4190:	a803      	add	r0, sp, #12
+   d4192:	f7ff ffc1 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d4196:	a804      	add	r0, sp, #16
+   d4198:	f001 fc02 	bl	d59a0 <_ZN6StringD1Ev>
+  Particle.publish("humidity", String(humidityPercentage), PRIVATE);
+   d419c:	eefd 7ae8 	vcvt.s32.f32	s15, s17
+   d41a0:	220a      	movs	r2, #10
+   d41a2:	ee17 1a90 	vmov	r1, s15
+   d41a6:	a804      	add	r0, sp, #16
+   d41a8:	f001 fc52 	bl	d5a50 <_ZN6StringC1Eih>
+   d41ac:	7823      	ldrb	r3, [r4, #0]
+   d41ae:	9a04      	ldr	r2, [sp, #16]
+   d41b0:	4914      	ldr	r1, [pc, #80]	; (d4204 <loop+0xc0>)
+   d41b2:	f88d 3000 	strb.w	r3, [sp]
+   d41b6:	a802      	add	r0, sp, #8
+   d41b8:	233c      	movs	r3, #60	; 0x3c
+   d41ba:	f001 f8e9 	bl	d5390 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE>
+   d41be:	a803      	add	r0, sp, #12
+   d41c0:	f7ff ffaa 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d41c4:	a804      	add	r0, sp, #16
+   d41c6:	f001 fbeb 	bl	d59a0 <_ZN6StringD1Ev>
   delay(10000);
-   d41d4:	f242 7010 	movw	r0, #10000	; 0x2710
-   d41d8:	f001 fada 	bl	d5790 <delay>
+   d41ca:	f242 7010 	movw	r0, #10000	; 0x2710
+   d41ce:	f001 fadf 	bl	d5790 <delay>
 
   if (isEndOfDay() == true) {
-   d41dc:	f7ff ff88 	bl	d40f0 <_Z10isEndOfDayv>
-   d41e0:	b138      	cbz	r0, d41f2 <loop+0x92>
-    Particle.publish("climateAverageUpdate", "Updating climate data file");
-   d41e2:	a802      	add	r0, sp, #8
-   d41e4:	4a08      	ldr	r2, [pc, #32]	; (d4208 <loop+0xa8>)
-   d41e6:	4909      	ldr	r1, [pc, #36]	; (d420c <loop+0xac>)
-   d41e8:	f7ff ff66 	bl	d40b8 <_ZN10CloudClass7publishEPKcS1_.isra.4>
-   d41ec:	a803      	add	r0, sp, #12
-   d41ee:	f7ff ffa1 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d41d2:	f7ff ff7f 	bl	d40d4 <_Z10isEndOfDayv>
+   d41d6:	b158      	cbz	r0, d41f0 <loop+0xac>
+   d41d8:	7823      	ldrb	r3, [r4, #0]
+   d41da:	f88d 3000 	strb.w	r3, [sp]
+   d41de:	a804      	add	r0, sp, #16
+   d41e0:	233c      	movs	r3, #60	; 0x3c
+   d41e2:	4a09      	ldr	r2, [pc, #36]	; (d4208 <loop+0xc4>)
+   d41e4:	4909      	ldr	r1, [pc, #36]	; (d420c <loop+0xc8>)
+   d41e6:	f001 f8d3 	bl	d5390 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE>
+   d41ea:	a805      	add	r0, sp, #20
+   d41ec:	f7ff ff94 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+    Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
   }
 }
-   d41f2:	b007      	add	sp, #28
-   d41f4:	ecbd 8b02 	vpop	{d8}
-   d41f8:	f85d fb04 	ldr.w	pc, [sp], #4
-   d41fc:	2003e360 	.word	0x2003e360
+   d41f0:	b008      	add	sp, #32
+   d41f2:	ecbd 8b02 	vpop	{d8}
+   d41f6:	bd10      	pop	{r4, pc}
+   d41f8:	2003e360 	.word	0x2003e360
+   d41fc:	2003e36c 	.word	0x2003e36c
    d4200:	000d719c 	.word	0x000d719c
    d4204:	000d71a8 	.word	0x000d71a8
    d4208:	000d71b1 	.word	0x000d71b1
@@ -513,7 +487,7 @@ template<typename TagT, typename ValueT>
 inline particle::Flag<TagT, ValueT>::Flag(ValueT val) :
         val_(val) {
    d4212:	4b05      	ldr	r3, [pc, #20]	; (d4228 <_GLOBAL__sub_I_sensor+0x18>)
-   d4214:	2200      	movs	r2, #0
+   d4214:	2201      	movs	r2, #1
    d4216:	701a      	strb	r2, [r3, #0]
 
 inline void pinSetFast(pin_t _pin) __attribute__((always_inline));
@@ -4008,7 +3982,7 @@ public:
       __shared_ptr(const __shared_ptr&) noexcept = default;
       __shared_ptr& operator=(const __shared_ptr&) noexcept = default;
       ~__shared_ptr() = default;
-   d5194:	f7fe ffce 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d5194:	f7fe ffc0 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
    d5198:	4620      	mov	r0, r4
    d519a:	b002      	add	sp, #8
    d519c:	bd10      	pop	{r4, pc}
@@ -4044,9 +4018,9 @@ public:
       __shared_ptr& operator=(const __shared_ptr&) noexcept = default;
       ~__shared_ptr() = default;
    d51c0:	a801      	add	r0, sp, #4
-   d51c2:	f7fe ffb7 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d51c2:	f7fe ffa9 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
    d51c6:	4620      	mov	r0, r4
-   d51c8:	f7fe ffb4 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d51c8:	f7fe ffa6 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
         delete d;
    d51cc:	4638      	mov	r0, r7
    d51ce:	2108      	movs	r1, #8
@@ -4814,9 +4788,9 @@ public:
       __shared_ptr& operator=(const __shared_ptr&) noexcept = default;
       ~__shared_ptr() = default;
    d546a:	a806      	add	r0, sp, #24
-   d546c:	f7fe fe62 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d546c:	f7fe fe54 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
    d5470:	a804      	add	r0, sp, #16
-   d5472:	f7fe fe5f 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d5472:	f7fe fe51 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
    d5476:	e013      	b.n	d54a0 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE+0x110>
    d5478:	f64f 739c 	movw	r3, #65436	; 0xff9c
         // Set generic error code in case completion callback wasn't invoked for some reason
@@ -4833,7 +4807,7 @@ public:
    d5492:	9909      	ldr	r1, [sp, #36]	; 0x24
    d5494:	f7ff fe83 	bl	d519e <_ZN8particle11PromiseBaseIbNS_6detail13FutureContextEE11fromDataPtrEPv>
    d5498:	a806      	add	r0, sp, #24
-   d549a:	f7fe fe4b 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d549a:	f7fe fe3d 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
    d549e:	e7da      	b.n	d5456 <_ZN10CloudClass13publish_eventEPKcS1_iN8particle5FlagsI15PublishFlagTypehEE+0xc6>
 
     return p.future();
@@ -5391,7 +5365,7 @@ void publishCompletionCallback(int error, const void* data, void* callbackData, 
    d5682:	f800 3c03 	strb.w	r3, [r0, #-3]
    d5686:	f7ff ff71 	bl	d556c <_ZN8particle6detail14FutureImplBaseIbNS0_13FutureContextEE14invokeCallbackIFvRKbEIRbEEEvRSt6atomicIPSt8functionIT_EEDpOT0_>
    d568a:	a801      	add	r0, sp, #4
-   d568c:	f7fe fd52 	bl	d4134 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
+   d568c:	f7fe fd44 	bl	d4118 <_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE0EED1Ev>
     } else {
         p.setResult(true);
     }

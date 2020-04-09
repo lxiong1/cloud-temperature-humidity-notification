@@ -39,7 +39,7 @@ def send_data_to_firestore(event, context):
     )
 
     if threshold_reached is True:
-        publish_threshold_reached_message(
+        publish_threshold_event(
             craft_topic_message(
                 event_name,
                 event_data
@@ -74,7 +74,7 @@ def set_firestore_credentials():
     )
 
 
-def publish_threshold_reached_message(topic_message, event_name):
+def publish_threshold_event(topic_message, event_name):
     topic_name = 'threshold'
     publisher_client = pubsub_v1.PublisherClient()
     publisher_client.publish(

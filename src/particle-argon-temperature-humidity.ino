@@ -25,7 +25,7 @@ void loop(void) {
 boolean isEndOfDay() {
   int currentHour = Time.hourFormat12(Time.now());
 
-  if (updated == false && currentHour >= 1 && Time.isPM() == true) {
+  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
     updated = true;
     return true;
   }
