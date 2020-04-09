@@ -1,6 +1,6 @@
-# Temperature & Humidity Notification System
+![master](https://github.com/lxiong1/cloud-temperature-humidity-system/workflows/master/badge.svg)
 
-![](https://github.com/lxiong1/cloud-temperature-humidity-system/workflows/master/badge.svg)
+# Temperature & Humidity Notification System
 
 The purpose of this project is to be able to notify a user via SMS when their ambient room temperature and relative humidity are in the range for discomfort and potential health risks. This is accomplished using a mixture of specified hardware and cloud technologies mentioned below.
 
