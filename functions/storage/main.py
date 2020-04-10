@@ -24,7 +24,7 @@ def send_climate_data_file_to_storage(event, context):
     humidity_average = calculate_average(get_climate_data_today(HUMIDITY))
 
     if blob.exists() is False:
-        blob.upload_from_string(f'date, {TEMPERATURE}Average, {HUMIDITY}Average')
+        blob.upload_from_string(f'date,{TEMPERATURE}Average,{HUMIDITY}Average')
 
     climate_data = blob.download_as_string().decode('utf-8')
 
@@ -32,7 +32,7 @@ def send_climate_data_file_to_storage(event, context):
         print(f'Date {TODAY} is already in the climate data file')
         return ''
 
-    blob.upload_from_string(f'{climate_data}\n{TODAY}, {temperature_average}, {humidity_average}')
+    blob.upload_from_string(f'{climate_data}\n{TODAY},{temperature_average},{humidity_average}')
     publish_updated_climate_data_file_event()
 
 
