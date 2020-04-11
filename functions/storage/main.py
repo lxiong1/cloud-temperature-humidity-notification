@@ -24,7 +24,8 @@ def send_climate_data_file_to_storage(event, context):
     humidity_average = calculate_average(get_climate_data_today(HUMIDITY))
 
     if blob.exists() is False:
-        blob.upload_from_string(f'date,{TEMPERATURE}Average,{HUMIDITY}Average')
+        print(f'Cannot aggregate data on {CLIMATE_DATA_FILE_NAME} because it does not exist in bucket {BUCKET_NAME}')
+        return ''
 
     climate_data = blob.download_as_string().decode('utf-8')
 
@@ -41,7 +42,7 @@ def publish_updated_climate_data_file_event():
     publisher_client = pubsub_v1.PublisherClient()
     publisher_client.publish(
         publisher_client.topic_path(PROJECT_ID, topic_name),
-        'Updated climate data file'
+        'Updated climate data file'.encode("utf-8")
     )
 
     print(f'Climate data file has been updated for the day, publishing message to topic "{topic_name}"')
