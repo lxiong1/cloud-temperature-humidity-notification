@@ -1,7 +1,9 @@
+from google.cloud import pubsub_v1
 from google.cloud import storage
 import pandas
 import plotly.graph_objects as go
 
+PROJECT_ID = 'alert-parsec-273000'
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
 BUCKET_NAME = 'climate-data-files'
@@ -16,6 +18,17 @@ def send_climate_data_graph_to_storage(event, context):
     figure = create_figure(climate_dataframe)
     figure.write_html(html_path)
     upload_html_file_to_storage(html_path)
+
+
+def publish_updated_climate_data_graph_event():
+    topic_name = 'engine-instance'
+    publisher_client = pubsub_v1.PublisherClient()
+    publisher_client.publish(
+        publisher_client.topic_path(PROJECT_ID, topic_name),
+        'Updated climate data graph'.encode("utf-8")
+    )
+
+    print(f'Climate data graph has been updated for the day, publishing message to topic "{topic_name}"')
 
 
 def create_figure(dataframe):
