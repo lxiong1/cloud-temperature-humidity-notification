@@ -1,11 +1,9 @@
-from datetime import datetime
 from google.cloud import storage
 import pandas
 import plotly.graph_objects as go
 
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
-TODAY = datetime.today().strftime('%Y-%m-%d')
 BUCKET_NAME = 'climate-data-files'
 CLIMATE_DATA_FILE_NAME = 'climate_data_aggregate.csv'
 CLIMATE_DATA_GRAPH_FILE_NAME = 'climate_data_aggregate_graph.html'
