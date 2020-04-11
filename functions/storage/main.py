@@ -49,7 +49,7 @@ def publish_updated_climate_data_file_event():
 
 
 def calculate_average(numbers):
-    return round(sum(numbers)/len(numbers))
+    return round(sum(numbers) / len(numbers))
 
 
 def get_climate_data_today(climate_type):
