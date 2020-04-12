@@ -1,18 +1,21 @@
 import base64
 from dateutil import parser
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from google.cloud import secretmanager
+from pytz import timezone
 import smtplib
 import textwrap
 
 PROJECT_ID = 'alert-parsec-273000'
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
+NOW_CDT = timezone('America/Chicago').localize(datetime.now())
+DATE_TODAY = NOW_CDT.strftime('%Y-%m-%d')
 
 
 def send_sms_message(event, context):
@@ -60,16 +63,15 @@ def send_sms_message(event, context):
 
 
 def check_valid_time_range():
-    today = datetime.today().strftime('%Y-%m-%d')
-    tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
-    start = parser.parse(f'{today}T11:00:00.000Z')
-    end = parser.parse(f'{tomorrow}T02:00:00.000Z')
-    timestamp_now = datetime.now(timezone.utc)
+    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
+    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0)
+    start = timezone('America/Chicago').localize(start)
+    end = timezone('America/Chicago').localize(end)
 
-    if timestamp_now <= start and timestamp_now >= end:
-        return False
+    if NOW_CDT >= start or NOW_CDT <= end:
+        return True
 
-    return True
+    return False
 
 
 def check_sms_message_within_valid_gap(climate_type):
@@ -90,15 +92,14 @@ def check_sms_message_within_valid_gap(climate_type):
     if not timestamp_values:
         return True
 
-    timestamp_now = datetime.now(timezone.utc)
     timestamp_record = timestamp_values[0]
-    timestamp_difference = timestamp_now - timestamp_record
+    timestamp_difference = NOW_CDT - timestamp_record
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
-    if timestamp_difference_hours < 1:
-        return False
+    if timestamp_difference_hours > 1:
+        return True
 
-    return True
+    return False
 
 
 def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):

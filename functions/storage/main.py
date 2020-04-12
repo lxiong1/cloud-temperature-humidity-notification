@@ -1,16 +1,17 @@
-from datetime import datetime, timedelta
-from dateutil import parser
+from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from google.cloud import pubsub_v1
 from google.cloud import storage
+from pytz import timezone
 
 PROJECT_ID = 'alert-parsec-273000'
 TEMPERATURE = 'temperature'
 HUMIDITY = 'humidity'
 TIMESTAMP = 'timestamp'
-TODAY = datetime.today().strftime('%Y-%m-%d')
+NOW_CDT = timezone('America/Chicago').localize(datetime.now())
+DATE_TODAY = NOW_CDT.strftime('%Y-%m-%d')
 BUCKET_NAME = 'climate-data-files'
 CLIMATE_DATA_FILE_NAME = 'climate_data_aggregate.csv'
 
@@ -29,11 +30,11 @@ def send_climate_data_file_to_storage(event, context):
 
     climate_data = blob.download_as_string().decode('utf-8')
 
-    if TODAY in climate_data:
-        print(f'Date {TODAY} is already in the climate data file')
+    if DATE_TODAY in climate_data:
+        print(f'Date {DATE_TODAY} is already in the climate data file')
         return ''
 
-    blob.upload_from_string(f'{climate_data}\n{TODAY},{temperature_average},{humidity_average}')
+    blob.upload_from_string(f'{climate_data}\n{DATE_TODAY},{temperature_average},{humidity_average}')
     publish_updated_climate_data_file_event()
 
 
@@ -53,9 +54,8 @@ def calculate_average(numbers):
 
 
 def get_climate_data_today(climate_type):
-    tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
-    start = parser.parse(f'{TODAY}T11:00:00.000Z')
-    end = parser.parse(f'{tomorrow}T02:00:00.000Z')
+    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
+    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0)
 
     if check_firestore_initialized() is False:
         set_firestore_credentials()
