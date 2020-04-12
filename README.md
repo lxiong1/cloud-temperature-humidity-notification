@@ -1,6 +1,6 @@
 ![master](https://github.com/lxiong1/cloud-temperature-humidity-system/workflows/master/badge.svg) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![made-with-c](https://img.shields.io/badge/Made%20with-C-1f425f.svg)](https://en.cppreference.com/w/) [![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
 
-# Cloud Temperature & Humidity System
+# Cloud Temperature & Humidity Notification
 
 The purpose of this project is to be able to notify a user via SMS when their ambient room temperature and relative humidity are in the range for discomfort and potential health risks. It is an Internet of Things (IoT) project, built with an event-driven serverless architecture and accomplished using a mixture of specified hardware and cloud technologies mentioned below.
 

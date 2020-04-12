@@ -11,51 +11,55 @@ from pytz import timezone
 import smtplib
 import textwrap
 
-PROJECT_ID = 'alert-parsec-273000'
-TEMPERATURE = 'temperature'
-HUMIDITY = 'humidity'
-NOW_CDT = timezone('America/Chicago').localize(datetime.now())
-DATE_TODAY = NOW_CDT.strftime('%Y-%m-%d')
+PROJECT_ID = "alert-parsec-273000"
+TEMPERATURE = "temperature"
+HUMIDITY = "humidity"
+NOW_CDT = timezone("America/Chicago").localize(datetime.now())
+DATE_TODAY = NOW_CDT.strftime("%Y-%m-%d")
 
 
 def send_sms_message(event, context):
     if check_valid_time_range() is False:
-        print('SMS message will not be sent after 9 PM or before 6 AM')
-        return ''
+        print("SMS message will not be sent after 9 PM or before 6 AM")
+        return ""
 
-    event_data = base64.b64decode(event['data']).decode('utf-8')
+    event_data = base64.b64decode(event["data"]).decode("utf-8")
     climate_type = TEMPERATURE if TEMPERATURE in event_data else HUMIDITY
 
     if check_sms_message_within_valid_gap(climate_type) is False:
-        print(f'SMS message for {climate_type} has already been sent within the past hour')
-        return ''
+        print(
+            f"SMS message for {climate_type} has already been sent within the past hour"
+        )
+        return ""
 
     try:
-        email_address = 'gcp.sms.robot@gmail.com'
+        email_address = "gcp.sms.robot@gmail.com"
         password = get_sms_password()
-        sms_gateway = '9207504346@tmomail.net'
+        sms_gateway = "9207504346@tmomail.net"
 
         sms_message = MIMEMultipart()
-        sms_message['From'] = email_address
-        sms_message['To'] = sms_gateway
-        sms_message['Subject'] = f'{climate_type.capitalize()} Threshold Reached'
-        sms_message.attach(MIMEText(f'{event_data}', 'plain'))
+        sms_message["From"] = email_address
+        sms_message["To"] = sms_gateway
+        sms_message["Subject"] = f"{climate_type.capitalize()} Threshold Reached"
+        sms_message.attach(MIMEText(f"{event_data}", "plain"))
 
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(email_address, password)
         server.sendmail(email_address, sms_gateway, sms_message.as_string())
 
         send_contact_attempt_history_to_firestore(climate_type, True, context.timestamp)
-        print(f'Successfully sent SMS message to {sms_gateway}')
+        print(f"Successfully sent SMS message to {sms_gateway}")
     except Exception as exception:
-        send_contact_attempt_history_to_firestore(climate_type, False, context.timestamp)
+        send_contact_attempt_history_to_firestore(
+            climate_type, False, context.timestamp
+        )
         print(
             textwrap.dedent(
-                f'''
+                f"""
                 Failed to send SMS message to {sms_gateway}
                 Error: {exception}
-                '''
+                """
             )
         )
     finally:
@@ -67,27 +71,31 @@ def send_contact_attempt_history_to_firestore(climate_type, status, context_time
         set_firestore_credentials()
 
     contact_attempt_history_document = {
-        'climateType': climate_type,
-        'contactAttemptSuccessful': status,
-        'timestamp': parser.parse(context_timestamp)
+        "climateType": climate_type,
+        "contactAttemptSuccessful": status,
+        "timestamp": parser.parse(context_timestamp),
     }
 
     firestore_client = firestore.client()
-    contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
+    contact_attempt_history_collection = firestore_client.collection(
+        "contact_attempt_history"
+    )
     contact_attempt_history_collection.add(contact_attempt_history_document)
 
     print(
         textwrap.dedent(
-            f'''
+            f"""
             The following document has been added to the firestore:
             {contact_attempt_history_document}
-            '''
+            """
         )
     )
 
 
 def check_valid_time_range():
-    start = set_cdt_timezone(datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0))
+    start = set_cdt_timezone(
+        datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
+    )
     end = set_cdt_timezone(datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0))
 
     if NOW_CDT >= start or NOW_CDT <= end:
@@ -101,15 +109,21 @@ def check_sms_message_within_valid_gap(climate_type):
         set_firestore_credentials()
 
     firestore_client = firestore.client()
-    contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
-    contact_attempt_latest_successful_document = contact_attempt_history_collection \
-        .where('climateType', '==', climate_type) \
-        .where('contactAttemptSuccessful', '==', True) \
-        .order_by('timestamp', direction=firestore.Query.DESCENDING) \
-        .limit(1) \
+    contact_attempt_history_collection = firestore_client.collection(
+        "contact_attempt_history"
+    )
+    contact_attempt_latest_successful_document = (
+        contact_attempt_history_collection.where("climateType", "==", climate_type)
+        .where("contactAttemptSuccessful", "==", True)
+        .order_by("timestamp", direction=firestore.Query.DESCENDING)
+        .limit(1)
         .stream()
+    )
 
-    timestamp_values = [document.to_dict()['timestamp'] for document in contact_attempt_latest_successful_document]
+    timestamp_values = [
+        document.to_dict()["timestamp"]
+        for document in contact_attempt_latest_successful_document
+    ]
 
     if not timestamp_values:
         return True
@@ -133,23 +147,16 @@ def check_firestore_initialized():
 
 def set_firestore_credentials():
     credential = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(
-        credential,
-        {
-            'projectId': PROJECT_ID,
-        }
-    )
+    firebase_admin.initialize_app(credential, {"projectId": PROJECT_ID})
 
 
 def set_cdt_timezone(datetime_object):
-    return timezone('America/Chicago').localize(datetime_object)
+    return timezone("America/Chicago").localize(datetime_object)
 
 
 def get_sms_password():
     secret_manager_client = secretmanager.SecretManagerServiceClient()
 
-    return secret_manager_client \
-        .access_secret_version('projects/203517643656/secrets/sms/versions/1') \
-        .payload \
-        .data \
-        .decode("utf-8")
+    return secret_manager_client.access_secret_version(
+        "projects/203517643656/secrets/sms/versions/1"
+    ).payload.data.decode("utf-8")
