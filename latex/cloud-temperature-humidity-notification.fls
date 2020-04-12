@@ -61,6 +61,7 @@ INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/clou
 INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 OUTPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.toc
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
