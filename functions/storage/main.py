@@ -35,6 +35,9 @@ def send_climate_data_file_to_storage(event, context):
         return ''
 
     blob.upload_from_string(f'{climate_data}\n{DATE_TODAY},{temperature_average},{humidity_average}')
+
+    print(f'File {CLIMATE_DATA_FILE_NAME} has been uploaded and stored in bucket {BUCKET_NAME}')
+
     publish_updated_climate_data_file_event()
 
 

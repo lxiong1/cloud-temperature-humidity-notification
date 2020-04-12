@@ -62,11 +62,33 @@ def send_sms_message(event, context):
         server.quit()
 
 
+def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):
+    if check_firestore_initialized() is False:
+        set_firestore_credentials()
+
+    contact_attempt_history_document = {
+        'climateType': climate_type,
+        'contactAttemptSuccessful': status,
+        'timestamp': parser.parse(context_timestamp)
+    }
+
+    firestore_client = firestore.client()
+    contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
+    contact_attempt_history_collection.add(contact_attempt_history_document)
+
+    print(
+        textwrap.dedent(
+            f'''
+            The following document has been added to the firestore:
+            {contact_attempt_history_document}
+            '''
+        )
+    )
+
+
 def check_valid_time_range():
-    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
-    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0)
-    start = timezone('America/Chicago').localize(start)
-    end = timezone('America/Chicago').localize(end)
+    start = set_cdt_timezone(datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0))
+    end = set_cdt_timezone(datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0))
 
     if NOW_CDT >= start or NOW_CDT <= end:
         return True
@@ -92,7 +114,7 @@ def check_sms_message_within_valid_gap(climate_type):
     if not timestamp_values:
         return True
 
-    timestamp_record = timestamp_values[0]
+    timestamp_record = set_cdt_timezone(timestamp_values[0].replace(tzinfo=None))
     timestamp_difference = NOW_CDT - timestamp_record
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
@@ -100,30 +122,6 @@ def check_sms_message_within_valid_gap(climate_type):
         return True
 
     return False
-
-
-def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):
-    if check_firestore_initialized() is False:
-        set_firestore_credentials()
-
-    contact_attempt_history_document = {
-        'climateType': climate_type,
-        'contactAttemptSuccessful': status,
-        'timestamp': parser.parse(context_timestamp)
-    }
-
-    firestore_client = firestore.client()
-    contact_attempt_history_collection = firestore_client.collection('contact_attempt_history')
-    contact_attempt_history_collection.add(contact_attempt_history_document)
-
-    print(
-        textwrap.dedent(
-            f'''
-            The following document has been added to the firestore:
-            {contact_attempt_history_document}
-            '''
-        )
-    )
 
 
 def check_firestore_initialized():
@@ -141,6 +139,10 @@ def set_firestore_credentials():
             'projectId': PROJECT_ID,
         }
     )
+
+
+def set_cdt_timezone(datetime_object):
+    return timezone('America/Chicago').localize(datetime_object)
 
 
 def get_sms_password():

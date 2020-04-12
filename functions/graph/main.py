@@ -19,6 +19,10 @@ def send_climate_data_graph_to_storage(event, context):
     figure.write_html(html_path)
     upload_html_file_to_storage(html_path)
 
+    print(f'File {CLIMATE_DATA_GRAPH_FILE_NAME} has been uploaded and stored in bucket {BUCKET_NAME}')
+
+    publish_updated_climate_data_graph_event()
+
 
 def publish_updated_climate_data_graph_event():
     topic_name = 'engine-instance'
