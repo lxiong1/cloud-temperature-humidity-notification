@@ -1,4 +1,4 @@
-/home/luexiong/projects/cloud-temperature-humidity-system/target/1.5.0/argon//obj/./src/module_info.o: \
+/home/luexiong/projects/cloud-temperature-humidity-notification/target/1.5.0/argon//obj/./src/module_info.o: \
  src/module_info.c ../../../dynalib/inc/module_info.inc \
  ../../../dynalib/inc/module_info.h ../../../services/inc/static_assert.h \
  /home/luexiong/.particle/toolchains/gcc-arm/5.3.1/arm-none-eabi/include/assert.h \

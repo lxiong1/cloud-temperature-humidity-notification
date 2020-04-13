@@ -1,4 +1,4 @@
-/home/luexiong/projects/cloud-temperature-humidity-system/target/1.5.0/argon//obj/./src/user_module.o: \
+/home/luexiong/projects/cloud-temperature-humidity-notification/target/1.5.0/argon//obj/./src/user_module.o: \
  src/user_module.c \
  ../../../modules/shared/nRF52840/inc/user-part/user_module.inc \
  ../../../dynalib/inc/dynalib.h

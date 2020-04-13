@@ -1,4 +1,4 @@
-/home/luexiong/projects/cloud-temperature-humidity-system/target/1.5.0/argon//obj/./src/newlib_stubs.o: \
+/home/luexiong/projects/cloud-temperature-humidity-notification/target/1.5.0/argon//obj/./src/newlib_stubs.o: \
  src/newlib_stubs.cpp \
  ../../../modules/shared/nRF52840/inc/user-part/newlib_stubs.inc \
  /home/luexiong/.particle/toolchains/gcc-arm/5.3.1/arm-none-eabi/include/sys/types.h \

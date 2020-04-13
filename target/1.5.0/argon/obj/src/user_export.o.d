@@ -1,4 +1,4 @@
-/home/luexiong/projects/cloud-temperature-humidity-system/target/1.5.0/argon//obj/./src/user_export.o: \
+/home/luexiong/projects/cloud-temperature-humidity-notification/target/1.5.0/argon//obj/./src/user_export.o: \
  src/user_export.c \
  ../../../modules/shared/nRF52840/inc/user_part_export.c \
  ../../../modules/shared/nRF52840/inc/module_user_init.h \

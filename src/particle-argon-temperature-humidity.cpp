@@ -3,16 +3,18 @@
 /******************************************************/
 
 #include "Particle.h"
-#line 1 "/home/luexiong/projects/cloud-temperature-humidity-system/src/particle-argon-temperature-humidity.ino"
-#include "Adafruit_Si7021.h" 
+#line 1 "/home/luexiong/projects/cloud-temperature-humidity-notification/src/particle-argon-temperature-humidity.ino"
+#include "Adafruit_Si7021.h"
+#include "stdbool.h"
 
 void setup();
 void loop(void);
-boolean isEndOfDay();
-#line 3 "/home/luexiong/projects/cloud-temperature-humidity-system/src/particle-argon-temperature-humidity.ino"
+bool isEndOfDay();
+#line 4 "/home/luexiong/projects/cloud-temperature-humidity-notification/src/particle-argon-temperature-humidity.ino"
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 SystemSleepConfiguration systemSleepConfiguration;
 bool updated = false;
+int publishIntervalMilliseconds = 300000;
 
 void setup() {
   Time.zone(-5);
@@ -29,27 +31,32 @@ void loop(void) {
 
   if (isEndOfDay() == true) {
     Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
+    publishIntervalMilliseconds = 1800000;
+  } else {
+    publishIntervalMilliseconds = 300000;
   }
 
-  delay(10s);
+  delay(5000);
 
   System.sleep(systemSleepConfiguration
     .gpio(WKP, RISING)
     .network(NETWORK_INTERFACE_CELLULAR)
     .flag(SystemSleepFlag::WAIT_CLOUD)
     .mode(SystemSleepMode::STOP)
-    .duration(50s));
+    .duration(publishIntervalMilliseconds));
 }
 
-boolean isEndOfDay() {
-  int currentHour = Time.hourFormat12(Time.now());
+bool isEndOfDay() {
+  int now = Time.now();
+  int currentHour = Time.hour(now);
+  int isMorning = Time.isAM(now);
 
-  if (updated == false && currentHour >= 9 && Time.isPM() == true) {
+  if (updated == false && currentHour >= 21) {
     updated = true;
     return true;
   }
 
-  if (updated == true && currentHour >= 6 && Time.isAM() == true) {
+  if (updated == true && currentHour >= 6 && isMorning) {
     updated = false;
     return false;
   }

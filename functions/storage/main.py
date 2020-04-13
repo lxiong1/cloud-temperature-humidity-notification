@@ -65,8 +65,8 @@ def calculate_average(numbers):
 
 
 def get_climate_data_today(climate_type):
-    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
-    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0)
+    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 0, 0, 0)
+    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 23, 59, 59)
 
     if check_firestore_initialized() is False:
         set_firestore_credentials()
