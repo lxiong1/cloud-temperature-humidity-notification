@@ -27,12 +27,19 @@
 \obeylines
 
 \section{Context}
-The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify user(s) of temperature and humidity fluctuations within their home through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to in the web. Behind the scenes, most computation are abstracted away from the user by using Google Cloud Platform. The initiation of these functionalities start from the temperature and humidity readings being published by the Particle Argon.\\
+The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify user(s) of temperature and humidity fluctuations within their living environment through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to in the web. Behind the scenes, most computation are abstracted away from the user by using Google Cloud Platform. The initiation of these functionalities start from the temperature and humidity readings being published by the Particle Argon.\\
 
-Working within the limitations of a small apartment, money, and of time alloted for the project, I am unable to realize the full potential of the system. This project represents a single IoT device that enacts the above mentioned functionalities. One can imagine however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached unwanted levels based on how they have configured the device. They would then be able to see data points for each specified area of the home. That is the aspiration. However this particular project seeks an minimum viable product, which is notifying users via SMS notification and graphing average climate per day for viewing averages over days.
+Working within the limitations of a small apartment, money, and of time alloted for the project, I am unable to realize the full potential of the system. This project represents a single IoT device that enacts the above mentioned functionalities. One can imagine however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached unwanted levels based on how they have configured the device. They would then be able to see data points for each specified area of the home. That is the aspiration. However this particular project seeks an minimum viable product, which is notifying users via SMS notification and graphing average climate per day for viewing averages over days.\\
 
-\section{Problem \& Market Research}
-From market researching, there are a couple of products that are similar:
+Though this project is targeted for the home living environment, it can legitimately be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where temperature hovers in the range of 65 to 85 degrees fahrenheit over the course of a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.
+
+\newpage
+
+\section{Problem}
+The problem trying to be solved are giving the user climate data about their living environment. It is clear that certain ranges of temperature and humidity affect humans in ways that are detrimental to their health. For example, low humidity environments --characterized as 30\% relative humidity and below -- is a condition for being prone to respiratory infections, dry eyes, and itchy irritated skin. High humidity environments -- characterized as 60\% and above -- is a condition for bacterial and mold growth, catalyst for decomposition of organic materials, and attracts bugs and insects to the home. A way to solve that problem is to give a renter or home owner actionable data to understand that their living environment is in need of change.
+
+\section{Market Research}
+From market researching, there are a couple of products that have similar functionalities:
 \begin{itemize}
     \setlength{\itemindent}{3em}
     \setlength{\parskip}{0pt}
@@ -40,6 +47,9 @@ From market researching, there are a couple of products that are similar:
     \item Govee Temperature Humidity Monitor
     \item Proteus AMBIO
 \end{itemize}
+
+\subsection{Product Comparison}
+The ThermoPro TP50 priced at \$10.99 per unit. It has a display screen showing temperature and humidity readings with no capablity
 
 Differentiation: Price and Device Status Alerts
 
