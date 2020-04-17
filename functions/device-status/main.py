@@ -1,5 +1,3 @@
-import base64
-from dateutil import parser
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -12,25 +10,17 @@ import smtplib
 import textwrap
 
 PROJECT_ID = "alert-parsec-273000"
-TEMPERATURE = "temperature"
-HUMIDITY = "humidity"
 CDT_TIMEZONE = timezone("America/Chicago")
 NOW_CDT = datetime.now(CDT_TIMEZONE)
-DATE_TODAY = NOW_CDT.strftime("%Y-%m-%d")
 
 
-def send_sms_message_with_threshold(event, context):
-    if check_valid_time_range() is False:
-        print("SMS message will not be sent after 9 PM or before 6 AM")
+def send_sms_message_with_device_status(event, context):
+    if check_device_on() is True:
+        print("Device is on and sending climate readings")
         return ""
 
-    event_data = base64.b64decode(event["data"]).decode("utf-8")
-    climate_type = TEMPERATURE if TEMPERATURE in event_data else HUMIDITY
-
-    if check_sms_message_within_valid_gap(climate_type) is False:
-        print(
-            f"SMS message for {climate_type} has already been sent within the past hour"
-        )
+    if check_valid_time_range() is False:
+        print("SMS message will not be sent after 9 PM or before 6 AM")
         return ""
 
     try:
@@ -41,20 +31,21 @@ def send_sms_message_with_threshold(event, context):
         sms_message = MIMEMultipart()
         sms_message["From"] = email_address
         sms_message["To"] = sms_gateway
-        sms_message["Subject"] = f"{climate_type.capitalize()} Threshold Reached"
-        sms_message.attach(MIMEText(f"{event_data}", "plain"))
+        sms_message["Subject"] = "Device Status: Inactive"
+        sms_message.attach(
+            MIMEText(
+                "Your Particle Argon is currently not sending temperature and humidity readings",
+                "plain",
+            )
+        )
 
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(email_address, password)
         server.sendmail(email_address, sms_gateway, sms_message.as_string())
 
-        send_contact_attempt_history_to_firestore(climate_type, True, context.timestamp)
-        print(f"Successfully sent SMS message to {sms_gateway} with threshold")
+        print(f"Successfully sent SMS message to {sms_gateway} with device status")
     except Exception as exception:
-        send_contact_attempt_history_to_firestore(
-            climate_type, False, context.timestamp
-        )
         print(
             textwrap.dedent(
                 f"""
@@ -65,32 +56,6 @@ def send_sms_message_with_threshold(event, context):
         )
     finally:
         server.quit()
-
-
-def send_contact_attempt_history_to_firestore(climate_type, status, context_timestamp):
-    if check_firestore_initialized() is False:
-        set_firestore_credentials()
-
-    contact_attempt_history_document = {
-        "climateType": climate_type,
-        "contactAttemptSuccessful": status,
-        "timestamp": parser.parse(context_timestamp),
-    }
-
-    firestore_client = firestore.client()
-    contact_attempt_history_collection = firestore_client.collection(
-        "contact_attempt_history"
-    )
-    contact_attempt_history_collection.add(contact_attempt_history_document)
-
-    print(
-        textwrap.dedent(
-            f"""
-            The following document has been added to the firestore:
-            {contact_attempt_history_document}
-            """
-        )
-    )
 
 
 def check_valid_time_range():
@@ -107,18 +72,16 @@ def check_valid_time_range():
     return False
 
 
-def check_sms_message_within_valid_gap(climate_type):
+def check_device_on():
     if check_firestore_initialized() is False:
         set_firestore_credentials()
 
     firestore_client = firestore.client()
-    contact_attempt_history_collection = firestore_client.collection(
-        "contact_attempt_history"
-    )
+    temperature_collection = firestore_client.collection("temperature")
     contact_attempt_latest_successful_document = (
-        contact_attempt_history_collection.where("climateType", "==", climate_type)
-        .where("contactAttemptSuccessful", "==", True)
-        .order_by("timestamp", direction=firestore.Query.DESCENDING)
+        temperature_collection.order_by(
+            "timestamp", direction=firestore.Query.DESCENDING
+        )
         .limit(1)
         .stream()
     )
@@ -131,11 +94,11 @@ def check_sms_message_within_valid_gap(climate_type):
     if not timestamp_values:
         return True
 
-    timestamp_record_cdt = timestamp_values[0]
-    timestamp_difference = NOW_CDT - timestamp_record_cdt
+    timestamp_record = timestamp_values[0]
+    timestamp_difference = NOW_CDT - timestamp_record
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
-    if timestamp_difference_hours > 1:
+    if timestamp_difference_hours < 1:
         return True
 
     return False

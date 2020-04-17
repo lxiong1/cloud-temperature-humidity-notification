@@ -1,0 +1,2 @@
+firebase-admin==4.0.1
+google-cloud-secret-manager==0.2.0
