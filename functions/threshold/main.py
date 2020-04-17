@@ -1,6 +1,6 @@
 import base64
 from dateutil import parser
-from datetime import datetime
+from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import firebase_admin
@@ -14,7 +14,8 @@ import textwrap
 PROJECT_ID = "alert-parsec-273000"
 TEMPERATURE = "temperature"
 HUMIDITY = "humidity"
-NOW_CDT = timezone("America/Chicago").localize(datetime.now())
+CDT_TIMEZONE = timezone("America/Chicago")
+NOW_CDT = datetime.now(CDT_TIMEZONE)
 DATE_TODAY = NOW_CDT.strftime("%Y-%m-%d")
 
 
@@ -93,10 +94,12 @@ def send_contact_attempt_history_to_firestore(climate_type, status, context_time
 
 
 def check_valid_time_range():
-    start = set_cdt_timezone(
-        datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0)
+    start = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 6, 0, 0).replace(
+        tzinfo=CDT_TIMEZONE
     )
-    end = set_cdt_timezone(datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0))
+    end = datetime(NOW_CDT.year, NOW_CDT.month, NOW_CDT.day, 21, 0, 0).replace(
+        tzinfo=CDT_TIMEZONE
+    )
 
     if NOW_CDT >= start or NOW_CDT <= end:
         return True
@@ -128,8 +131,8 @@ def check_sms_message_within_valid_gap(climate_type):
     if not timestamp_values:
         return True
 
-    timestamp_record = set_cdt_timezone(timestamp_values[0].replace(tzinfo=None))
-    timestamp_difference = NOW_CDT - timestamp_record
+    timestamp_record_cdt = timestamp_values[0] - timedelta(hours=5)
+    timestamp_difference = NOW_CDT - timestamp_record_cdt
     timestamp_difference_hours = timestamp_difference.total_seconds() / 3600
 
     if timestamp_difference_hours > 1:
@@ -148,10 +151,6 @@ def check_firestore_initialized():
 def set_firestore_credentials():
     credential = credentials.ApplicationDefault()
     firebase_admin.initialize_app(credential, {"projectId": PROJECT_ID})
-
-
-def set_cdt_timezone(datetime_object):
-    return timezone("America/Chicago").localize(datetime_object)
 
 
 def get_sms_password():
