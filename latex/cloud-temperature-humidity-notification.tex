@@ -31,29 +31,34 @@ The Cloud Temperature \& Humidity Notification System is about an IoT system tha
 
 Working within the limitations of a small apartment, money, and of time alloted for the project, I am unable to realize the full potential of the system. This project represents a single IoT device that enacts the above mentioned functionalities. One can imagine however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached unwanted levels based on how they have configured the device. They would then be able to see data points for each specified area of the home. That is the aspiration. However this particular project seeks an minimum viable product, which is notifying users via SMS notification and graphing average climate per day for viewing averages over days.\\
 
-Though this project is targeted for the home living environment, it can legitimately be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where temperature hovers in the range of 65 to 85 degrees fahrenheit over the course of a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.
+Though this project is targeted for the home living environment, it can legitimately be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where temperature hovers in the range of 65 to 85 degrees fahrenheit over the course of a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.\\
 
-\newpage
+I will preface that the Cloud Temperature \& Humidity Notification System is heavily software-based. The hardware components are nothing special and only serve as a vessel for sending climate information to be processed in the cloud to create the closed-feedback loop.
 
 \section{Problem}
-The problem trying to be solved are giving the user climate data about their living environment. It is clear that certain ranges of temperature and humidity affect humans in ways that are detrimental to their health. For example, low humidity environments --characterized as 30\% relative humidity and below -- is a condition for being prone to respiratory infections, dry eyes, and itchy irritated skin. High humidity environments -- characterized as 60\% and above -- is a condition for bacterial and mold growth, catalyst for decomposition of organic materials, and attracts bugs and insects to the home. A way to solve that problem is to give a renter or home owner actionable data to understand that their living environment is in need of change.
+The problem trying to be solved are giving the user climate data about their living environment. It is clear that certain ranges of temperature and humidity affect humans in ways that are detrimental to their health. For example, low humidity environments --characterized as 30\% relative humidity and below -- is a condition for being prone to respiratory infections, dry eyes, and itchy irritated skin. High humidity environments -- characterized as 60\% and above -- is a condition for bacterial and mold growth, catalyst for decomposition of organic materials, and attracts bugs and insects to the home. A way to solve that problem is to give a renter or home owner actionable data to understand that their living environment is in need of change. That is where the Cloud Temperature \& Humidity Notification System comes in.
 
 \section{Market Research}
 From market researching, there are a couple of products that have similar functionalities:
 \begin{itemize}
     \setlength{\itemindent}{3em}
     \setlength{\parskip}{0pt}
-    \item ThermoPro TP50
+    \item AcuRite 01166M 3-Sensor Indoor Monitoring
     \item Govee Temperature Humidity Monitor
     \item Proteus AMBIO
 \end{itemize}
 
-\subsection{Product Comparison}
-The ThermoPro TP50 priced at \$10.99 per unit. It has a display screen showing temperature and humidity readings with no capablity
+All three of these products measure temperature and humidity and have their own value propositions. We'll take a look at what they do and how they differ from this project.
 
-Differentiation: Price and Device Status Alerts
+\subsection{AcuRite 01166M 3-Sensor Indoor Monitoring}
+AcuRite 1166M is packaged with 3 sensor units along with what they call a \textit{smartHUB}. The name is self-explanatory, it is the central communication piece for the 3 sensors. The max connection capacity for the smartHUB are 10 sensors. These sensors will read in the climate information of the environment and send it over to the smartHUB, which will then send information over the network to be processed and viewed online. There are some inherent flaws with this system as I will explain.\\
 
-The Cloud Temperature \& Humidity Notification System seeks to solve the issue of the middle ground for home automation.
+With the max capacity being 10 sensors connected to the smartHUB, it is only usable in a home environment and even then, a user may want more sensors if they have a larger home. The reason for the limitation is the design of having sensors centered around the smartHUB, and not standalone pieces that can interact with a network. The sensors are nothing without the smartHUB, therefore renders the system useless if it breaks. It also adds one more layer of complexity that is unnecessary for the user. Unnecessary because it is not doing anything complex enough to justify a central hub.
+
+Another issue is reliability. The range at which these sensors can communicate with the smartHUB are limited and depending on the structure, materials, and size of the home, can make it more difficult to reliably transfer information from sensor to hub. This issue of reliability is further enforced by users of the system.
+
+\subsection{Govee Temperature Humidity Monitor}
+\subsection{Proteus AMBIO}
 
 \section{Solution Architecture \& Design Approach}
 \subsection{SMS Notification Rules \& Trigger Criteria}
