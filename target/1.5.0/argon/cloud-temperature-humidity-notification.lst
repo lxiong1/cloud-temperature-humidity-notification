@@ -256,7 +256,7 @@ void __cxa_guard_release (__guard *g) {*(char *)g = 1;};
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 SystemSleepConfiguration systemSleepConfiguration;
 bool updated = false;
-int publishIntervalMilliseconds = 300000;
+int publishIntervalMilliseconds = 900000;
 
 void setup() {
    d40e0:	b508      	push	{r3, lr}
@@ -268,7 +268,7 @@ void setup() {
 }
    d40ec:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
 bool updated = false;
-int publishIntervalMilliseconds = 300000;
+int publishIntervalMilliseconds = 900000;
 
 void setup() {
   Time.zone(-5);
@@ -502,7 +502,7 @@ void loop(void) {
    d4208:	4b52      	ldr	r3, [pc, #328]	; (d4354 <loop+0x1f4>)
    d420a:	e000      	b.n	d420e <loop+0xae>
   } else {
-    publishIntervalMilliseconds = 300000;
+    publishIntervalMilliseconds = 900000;
    d420c:	4b52      	ldr	r3, [pc, #328]	; (d4358 <loop+0x1f8>)
         }
         return *this;
@@ -811,7 +811,7 @@ private:
    d434c:	000d7541 	.word	0x000d7541
    d4350:	000d755c 	.word	0x000d755c
    d4354:	001b7740 	.word	0x001b7740
-   d4358:	000493e0 	.word	0x000493e0
+   d4358:	000dbba0 	.word	0x000dbba0
    d435c:	2003e368 	.word	0x2003e368
    d4360:	000d7834 	.word	0x000d7834
 

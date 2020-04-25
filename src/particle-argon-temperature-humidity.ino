@@ -4,7 +4,7 @@
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 SystemSleepConfiguration systemSleepConfiguration;
 bool updated = false;
-int publishIntervalMilliseconds = 300000;
+int publishIntervalMilliseconds = 900000;
 
 void setup() {
   Time.zone(-5);
@@ -23,7 +23,7 @@ void loop(void) {
     Particle.publish("climateAverageUpdate", "Updating climate data file", PRIVATE);
     publishIntervalMilliseconds = 1800000;
   } else {
-    publishIntervalMilliseconds = 300000;
+    publishIntervalMilliseconds = 900000;
   }
 
   delay(5000);
