@@ -3,6 +3,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{enumitem}
 
 \setlength{\parindent}{0pt}
 \lstset{
@@ -29,9 +30,9 @@
 \section{Context}
 The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify user(s) of temperature and humidity fluctuations within their living environment through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to in the web. Behind the scenes, most computation are abstracted away from the user by using Google Cloud Platform. The initiation of these functionalities start from the temperature and humidity readings being published by the Particle Argon.\\
 
-Working within the limitations of a small apartment, money, and of time alloted for the project, I am unable to realize the full potential of the system. This project represents a single IoT device that enacts the above mentioned functionalities. One can imagine however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached unwanted levels based on how they have configured the device. They would then be able to see data points for each specified area of the home. That is the aspiration. However this particular project seeks an minimum viable product, which is notifying users via SMS notification and graphing average climate per day for viewing averages over days.\\
+Working within the limitations of a small apartment and time alloted for the project, I am unable to realize the full potential of the system. This project represents a single IoT device that enacts the above mentioned functionalities. One can imagine however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached configured threshold levels for each device. They would then be able to see data points for each specified area of the home. That is the aspiration. However this particular project seeks an minimum viable product, which is notifying users climate thresholds being met and device status through SMS notification as well as graphing average climate per day for viewing averages over days. The threshold values for temperature and humidity will be hardcoded as it would require additional development of an mobile and/or web application to allow user configuration.\\
 
-Though this project is targeted for the home living environment, it can legitimately be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where temperature hovers in the range of 65 to 85 degrees fahrenheit over the course of a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.\\
+Though the system is targeted for the home living environment, it can be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where temperature hovers in the range of 65 to 85 degrees fahrenheit over the course of a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.\\
 
 I will preface that the Cloud Temperature \& Humidity Notification System is heavily software-based. The hardware components are nothing special and only serve as a vessel for sending climate information to be processed in the cloud to create the closed-feedback loop.
 
@@ -40,15 +41,16 @@ The problem trying to be solved are giving the user climate data about their liv
 
 \section{Market Research}
 From market researching, there are a couple of products that have similar functionalities:
+
 \begin{itemize}
-    \setlength{\itemindent}{3em}
-    \setlength{\parskip}{0pt}
-    \item AcuRite 01166M 3-Sensor Indoor Monitoring
-    \item Govee Temperature Humidity Monitor
-    \item Proteus AMBIO
+	\setlength{\itemindent}{2em}
+
+	\item AcuRite 01166M 3-Sensor Indoor Monitoring
+	\item Govee Temperature Humidity Monitor
+	\item Proteus AMBIO
 \end{itemize}
 
-All three of these products measure temperature and humidity and have their own value propositions. We'll take a look at what they do and how they differ from this project.
+All three of these products measure temperature and humidity and have their own value propositions. We'll take a look at what they do and how they differ from this system.
 
 \subsection{AcuRite 01166M 3-Sensor Indoor Monitoring}
 AcuRite 1166M is packaged with 3 sensor units along with what they call a \textit{smartHUB}. The name is self-explanatory, it is the central communication piece for the 3 sensors. The max connection capacity for the smartHUB are 10 sensors. These sensors will read in the climate information of the environment and send it over to the smartHUB, which will then send information over the network to be processed and viewed online. There are some inherent flaws with this system as I will explain.\\
@@ -60,9 +62,48 @@ Another issue is reliability. The range at which these sensors can communicate w
 \subsection{Govee Temperature Humidity Monitor}
 \subsection{Proteus AMBIO}
 
-\section{Solution Architecture \& Design Approach}
-\subsection{SMS Notification Rules \& Trigger Criteria}
 \section{Process}
+This section will describe the thought process behind the implementation, considerations taken during development, and how the Cloud Temperature \& Humidity Notification System performs user notification and automatic graph updates.
+
+\subsection{System Requirements}
+In order to satisfy the need of giving a user useful information about temperature and humidity in their targeted environment, the following are the minimum viable product requirements:
+
+\begin{itemize}
+    \setlength{\itemindent}{2em}
+	\item Temperature upper threshold set to lesser than or equal to 75 degrees fahrenheit
+	\item Temperature lower threshold set to greater than or equal to 65 degrees fahrenheit
+	\item Humidity upper threshold set to lesser than or equal to 60 percent relative humidity
+	\item Humidity lower threshold set to greater than or equal to 30 percent relative humidity
+	\item Notification sent as SMS message
+	\item Minimum 1 hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below threshold value
+	\item Check device status every hour
+\end{itemize}
+
+\subsection{Event-Driven Architecture}
+The approach taken for the system as mentioned before is heavy on the software side which manifests into an event-driven serverless architecture. An event-driven serverless architecture in the system context allows the climate data readings to be sent as events, processed based on its event type, and have actions performed without the need for standing up servers. The following are benefits of the said architecture:
+
+\begin{itemize}
+	\setlength{\itemindent}{2em}
+	\item Loose coupling between software components
+	\item Automatically scale based on user demand
+	\item All processing driven by event
+	\item No need for management of servers
+	\item Inherent stateless nature
+	\item Overall cost reduction versus managed servers
+\end{itemize}
+
+While these benefits are good to have, every architectural decision has it's drawbacks. The following  are drawbacks of the said architecture:
+
+\begin{itemize}
+	\setlength{\itemindent}{2em}
+	\item Each serverless function must provide its own packaged dependencies
+	\item Having large amount of serverless functions can become unwieldy
+	\item Long running processes are not fit for serverless functions
+	\item Handling system state amongst stateless functions can be tricky
+\end{itemize}
+
+Using an event-driven serverless architecture made sense for this particular system, as the needs of the system are fulfilled automatically on publishing data without any manual intervention.
+
 \subsection{Hardware Setup}
 \subsection{Implementation With Particle Argon \& Ecosystem}
 \subsection{Implementation With Google Cloud Platform }
