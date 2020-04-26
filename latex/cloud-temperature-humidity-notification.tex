@@ -102,7 +102,7 @@ While these benefits are good to have, every architectural decision has it's dra
 
 Using an event-driven serverless architecture made sense for this particular system, as the needs of the system are fulfilled automatically on publishing data without any manual intervention.
 
-\section{Process}
+\section{Process and Implementation}
 I will preface that the Cloud Temperature \& Humidity Notification System is heavily software-based. The hardware components are nothing special and ultimately serve as a vessel for sending climate information to be processed in the cloud to create the closed-feedback loop. The Particle Argon referenced in Section~\ref{section:hardware} will contain code that is fundamental to the system requirements and architectural decision in Section~\ref{section:overview}. This particular section will describe the thought process behind the implementation, considerations taken during development, and how the system performs user notification and automatic graph updates.
 
 \subsection{Hardware Components}
@@ -126,7 +126,7 @@ Figure~\ref{fig:breadboard_schematic} consists of the following hardware compone
 
 \newpage
 
-\subsection{Implementation with Particle Argon \& Particle Cloud}
+\subsection{Particle Argon and Particle Cloud}
 \begin{minipage}[c]{\textwidth}
 	\begin{figure}[H]
 		\lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
@@ -161,19 +161,17 @@ In relation to the end of the day, a variable called \textbf{publishIntervalMill
 
 A sleep state simply means that the Particle Argon turns off all unnecessary internal processes that consume energy and maintains a low-power state for a duration of a configured time. There are two main modes of sleep state that Particle Argon can go into: \textbf{STOP} and \textbf{HIBERNATE}. The decision was to use the \textbf{STOP} sleeping mode because it provides the opportunity to keep the network connection alive while it is in a low-power state. \textbf{HIBERNATE} does not allow this, and if it was used, it would require the Particle Argon to completely establish a new connection every time it wakes up from the specified duration of \textbf{publishIntervalMilliseconds}; defeating the point of using it.
 
-\subsection{Implementation with Google Cloud Platform }
+\subsection{Google Cloud Platform }
 \label{section:gcp}
-
-
-\subsubsection{Purpose of Tools Within Platform}
-
+Google Cloud Platform is the most important part of the whole system.
 
 \subsubsection{SMS Notification}
 
 
 \subsubsection{Climate Data Graph}
 
-\section{Discussion of Results}
+\section{Discussion}
+It was quite a difficult experience integrating together all of the hardware and technology stack used in the Cloud Temperature \& Humidity Notification System. This was especially true of Google Cloud Platform because while there were extensive documentation on their tools, Google is a company known for renaming, rebranding, and deploying new tools often. As one can imagine, that makes it difficult to discern what was changed, what to look for, and what to use. Their documentation is also not very well organized as concepts and subconcepts of a particular tool are scattered all throughout website. Ironically enough, it was more efficient -- though not exactly pleasant -- to Google search for what I needed than navigating through the Google Cloud Platform documentation.
 
 \section{Conclusion}
 
