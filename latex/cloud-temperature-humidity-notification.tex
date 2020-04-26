@@ -59,6 +59,7 @@ Another issue is reliability. The range at which these sensors can communicate w
 \subsection{Proteus AMBIO}
 
 \section{System Overview}
+\label{section:overview}
 This section will describe the minimum viable product requirements and the architectural decision made for achieving the desired results of the system.
 
 \subsection{System Requirements}
@@ -102,9 +103,10 @@ While these benefits are good to have, every architectural decision has it's dra
 Using an event-driven serverless architecture made sense for this particular system, as the needs of the system are fulfilled automatically on publishing data without any manual intervention.
 
 \section{Process}
-I will preface that the Cloud Temperature \& Humidity Notification System is heavily software-based. The hardware components are nothing special and serve only as a vessel for sending climate information to be processed in the cloud to create the closed-feedback loop. This section will describe the thought process behind the implementation, considerations taken during development, and how the system performs user notification and automatic graph updates.
+I will preface that the Cloud Temperature \& Humidity Notification System is heavily software-based. The hardware components are nothing special and ultimately serve as a vessel for sending climate information to be processed in the cloud to create the closed-feedback loop. The Particle Argon referenced in Section~\ref{section:hardware} will contain code that is fundamental to the system requirements and architectural decision in Section~\ref{section:overview}. This particular section will describe the thought process behind the implementation, considerations taken during development, and how the system performs user notification and automatic graph updates.
 
 \subsection{Hardware Components}
+\label{section:hardware}
 \begin{figure}[H]
 	\center
 	\includegraphics[width=\textwidth]{images/breadboard-schematic.png}
@@ -122,31 +124,54 @@ Figure~\ref{fig:breadboard_schematic} consists of the following hardware compone
 	\item Lithium Ion Polymer Battery 1000 mAh -- A power source for the conntected components
 \end{itemize}
 
-\subsection{Implementation with Particle Argon \& Particle Ecosystem}
+\newpage
+
+\subsection{Implementation with Particle Argon \& Particle Cloud}
+\begin{minipage}[c]{\textwidth}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
+		\caption{setup() function}
+		\label{fig:setup}
+	\end{figure}
+\end{minipage}\ \\\\
+
+The \textbf{setup()} as shown in Figure~\ref{fig:setup} is important here for two reasons. The first part is that the Particle Argon is in default timezone of Universal Time Coordinated (UTC) which differs from the timezone I live in is Central Daylight Time (CDT). To be able to represent the timezone difference, setting the default timezone with an offset of minus 5 hours is required. The second part is making sure that the Adafruit Si7021 is enabled after being initialized because it is the central piece for reading temperature and humidity from the targeted environment.
+
+\begin{minipage}[c]{\textwidth}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=14,lastline=37]{../src/particle-argon-temperature-humidity.ino}
+		\caption{loop() function}
+		\label{fig:loop}
+	\end{figure}
+\end{minipage}\ \\\\
+
+In Figure~\ref{fig:loop}, the \textbf{loop()} function shows that temperature and humidity are being read with the sensor object. They are then used as values to publish to the Particle Cloud. From that point on they are passed to Google Cloud Platform. However, there will be further explanation on how this integration works and what processes happen on the Google Cloud Platform in Section~\ref{section:gcp}.
+
+\begin{minipage}[c]{\textwidth}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=39,lastline=55]{../src/particle-argon-temperature-humidity.ino}
+		\caption{isEndOfDay() function}
+		\label{fig:endofday}
+	\end{figure}
+\end{minipage}\ \\\\
+
+Beyond publishing the climate values, the \textbf{loop()} function checks whether the day has ended from the perspective of the system. The end of the day is defined as code in Figure~\ref{fig:endofday}. Before it was mentioned that a UTC offset of minus 5 hours was applied in the \textbf{setup()} function, and this is where it comes into context. The end of day is 9 PM CDT, which is equivalent to 21 in a 24 hour format. Once the system understands that it is the end of the day, an event is published to update a file containing daily climate average aggregates for the day. Same as before this will be further explained in Section~\ref{section:gcp}.\\
+
+In relation to the end of the day, a variable called \textbf{publishIntervalMilliseconds} will be set to 1800000, in other words, 30 minutes. This publishing interval will last for 9 hours starting from 9 PM CDT to 6 AM CDT. During the working day, the \textbf{publishIntervalMilliseconds} is set to 900000, or 15 minutes. This plays a role in conserving battery because during the night, it is only publishing climate data twice per hour as opposed to four times per hour. However, the bigger battery saving impact comes from placing the Particle Argon in a sleeping state.\\
+
+A sleep state simply means that the Particle Argon turns off all unnecessary internal processes that consume energy and maintains a low-power state for a duration of a configured time. There are two main modes of sleep state that Particle Argon can go into: \textbf{STOP} and \textbf{HIBERNATE}. The decision was to use the \textbf{STOP} sleeping mode because it provides the opportunity to keep the network connection alive while it is in a low-power state. \textbf{HIBERNATE} does not allow this, and if it was used, it would require the Particle Argon to completely establish a new connection every time it wakes up from the specified duration of \textbf{publishIntervalMilliseconds}; defeating the point of using it.
+
 \subsection{Implementation with Google Cloud Platform }
+\label{section:gcp}
+
+
 \subsubsection{Purpose of Tools Within Platform}
+
+
 \subsubsection{SMS Notification}
+
+
 \subsubsection{Climate Data Graph}
-
-% \begin{minipage}[c]{\textwidth}
-% \begin{lstlisting}
-% function createSpreadsheetOnChangeTrigger() {
-%   let spreadsheet = SpreadsheetApp.getActive()
-
-%   ScriptApp.newTrigger('appendAverageCalculation')
-%     .forSpreadsheet(spreadsheet)
-%     .onChange()
-%     .create();
-% }
-% \end{lstlisting}
-% \end{minipage}\ \\
-
-% \begin{figure}[H]
-% \center
-% \includegraphics[width=\textwidth]{images/particle-argon-gcp-sheets-script.png}
-% \caption{Google Sheets Script}
-% \label{fig:script}
-% \end{figure}
 
 \section{Discussion of Results}
 
