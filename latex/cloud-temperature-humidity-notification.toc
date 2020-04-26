@@ -4,14 +4,15 @@
 \contentsline {subsection}{\numberline {3.1}AcuRite 01166M 3-Sensor Indoor Monitoring}{4}%
 \contentsline {subsection}{\numberline {3.2}Govee Temperature Humidity Monitor}{5}%
 \contentsline {subsection}{\numberline {3.3}Proteus AMBIO}{5}%
-\contentsline {section}{\numberline {4}Process}{5}%
+\contentsline {section}{\numberline {4}System Overview}{5}%
 \contentsline {subsection}{\numberline {4.1}System Requirements}{5}%
 \contentsline {subsection}{\numberline {4.2}Event-Driven Architecture}{5}%
-\contentsline {subsection}{\numberline {4.3}Hardware Setup}{6}%
-\contentsline {subsection}{\numberline {4.4}Implementation With Particle Argon \& Ecosystem}{6}%
-\contentsline {subsection}{\numberline {4.5}Implementation With Google Cloud Platform }{6}%
-\contentsline {subsubsection}{\numberline {4.5.1}Purpose of Tools Within Platform}{6}%
-\contentsline {subsubsection}{\numberline {4.5.2}SMS Notification}{6}%
-\contentsline {subsubsection}{\numberline {4.5.3}Climate Data Graph}{6}%
-\contentsline {section}{\numberline {5}Discussion of Results}{6}%
-\contentsline {section}{\numberline {6}Conclusion}{6}%
+\contentsline {section}{\numberline {5}Process}{6}%
+\contentsline {subsection}{\numberline {5.1}Hardware Components}{7}%
+\contentsline {subsection}{\numberline {5.2}Implementation with Particle Argon \& Particle Ecosystem}{8}%
+\contentsline {subsection}{\numberline {5.3}Implementation with Google Cloud Platform }{8}%
+\contentsline {subsubsection}{\numberline {5.3.1}Purpose of Tools Within Platform}{8}%
+\contentsline {subsubsection}{\numberline {5.3.2}SMS Notification}{8}%
+\contentsline {subsubsection}{\numberline {5.3.3}Climate Data Graph}{8}%
+\contentsline {section}{\numberline {6}Discussion of Results}{8}%
+\contentsline {section}{\numberline {7}Conclusion}{8}%

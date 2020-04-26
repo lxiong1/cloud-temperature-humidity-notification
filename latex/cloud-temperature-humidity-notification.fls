@@ -66,6 +66,9 @@ OUTPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/clo
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
+INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/breadboard-schematic.png
+INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/breadboard-schematic.png
+INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/breadboard-schematic.png
 INPUT /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux
 INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb

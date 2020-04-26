@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  25 APR 2020 17:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  26 APR 2020 11:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -149,30 +149,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--33
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 35--35
-
- []
-
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 56--56
+Underfull \hbox (badness 10000) in paragraph at lines 52--52
 
  []
 
-[4] [5] [6] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux) ) 
+[4] [5]
+<images/breadboard-schematic.png, id=25, 363.759pt x 244.915pt>
+File: images/breadboard-schematic.png Graphic file (type png)
+<use images/breadboard-schematic.png>
+Package pdftex.def Info: images/breadboard-schematic.png  used on input line 110.
+(pdftex.def)             Requested size: 345.0pt x 232.28673pt.
+ [6]
+Overfull \hbox (6.04588pt too wide) in paragraph at lines 125--125
+[]\OT1/cmr/bx/n/12 Implementation with Par-ti-cle Ar-gon & Par-ti-cle Ecosys-
+ []
+
+[7 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/breadboard-schematic.png>] [8] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux) ) 
 Here is how much of TeX's memory you used:
- 2906 strings out of 481239
- 43661 string characters out of 5920377
- 282885 words of memory out of 5000000
- 18182 multiletter control sequences out of 15000+600000
+ 2917 strings out of 481239
+ 43921 string characters out of 5920377
+ 282893 words of memory out of 5000000
+ 18190 multiletter control sequences out of 15000+600000
  537274 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,6n,36p,1179b,217s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,6n,36p,1305b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (6 pages, 103668 bytes).
+Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (8 pages, 269728 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 63 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
