@@ -47,4 +47,4 @@ The following is the breadboard schematic:
 The results of temperature and humidty readings are calculated for daily averages, and then used at data points in this interactive graph: [![Interactive Graph !](https://img.shields.io/badge/Interactive%20Graph-1abc9c.svg)](http://35.238.110.48:8080)
 
 ## System Processes Explained
-Due to the complexity of the system behind the scenes, it will be wholly explained in this `LaTex` report (work-in-progress): [![Report !](https://img.shields.io/badge/Report-1abc9c.svg)](latex/cloud-temperature-humidity-system.pdf)
+Due to the complexity of the system behind the scenes, it will be wholly explained in this `LaTex` report (work-in-progress): [![Report !](https://img.shields.io/badge/Report-1abc9c.svg)](/latex/cloud-temperature-humidity-notification.pdf)
