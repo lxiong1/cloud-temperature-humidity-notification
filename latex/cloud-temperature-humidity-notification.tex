@@ -178,7 +178,8 @@ A sleeping state means that the Particle Argon turns off all unnecessary interna
 Google Cloud Platform is the most important part of the whole system. That being said, it is also important to give a brief description of each service used within the platform and why.
 
 \subsubsection{Compute Engine}
-Compute Engine is a virtual machine instance that is user-configured. This is as opposed to App Engine that is a fully-managed by Google Cloud Platform. The instance will be used to host a web server. With that, the system will have the ability to deliver a static website containing an interactive graph. Figure~\ref{fig:interactive-graph} shows ambient temperature and relative humidity daily averages that are data points on the interactive graph. The user will be able to see the changes over time and adjust the climate in their environment according to the purpose of what they are trying to achieve. It can be accessed in the link here: \url{http://35.238.110.48:8080}.
+\label{section:compute-engine}
+Compute Engine is a virtual machine service that provides user-configured instances. This is as opposed to App Engine that is a fully-managed by Google Cloud Platform. The instance will be used to host a web server. With that, the system will have the ability to deliver a static website containing an interactive graph. Figure~\ref{fig:interactive-graph} shows ambient temperature and relative humidity daily averages that are data points on the interactive graph. The user will be able to see the changes over time and adjust the climate in their environment according to the purpose of what they are trying to achieve. It can be accessed in the link here: \url{http://35.238.110.48:8080}.
 
 \begin{figure}[H]
     \center
@@ -187,7 +188,7 @@ Compute Engine is a virtual machine instance that is user-configured. This is as
     \label{fig:interactive-graph}
 \end{figure}
 
-Previously it was mentioned that a web server was used to deliver the interactive graph, but the specifics of how that was accomplished were not explained. On a high level, it is a combination of using Python and several software components including Plotly, Docker, NGINX, and a separate project repository. Below will explain what each of these software components is and the role they play in the creation and delivery of the graph to the web.\\
+Previously it was mentioned that a web server was used to deliver the interactive graph, but the specifics of how that was accomplished were not explained. On a high level, it is a combination of using Python and several software components including Plotly, Docker, NGINX, and a separate project repository. Below will explain what each of these software components is and the role they play in the automatic creation and delivery of the graph to the web.\\
 
 \textbf{Plotly} — A Python library to help develop custom graphs. It offers many graph types and visual options. To show climate data in a visually simple way, a line graph was used to indicate changing ambient temperature and relative humidity over time.\\
 
@@ -235,7 +236,23 @@ As you can see, the root collections contain multiple documents with fields that
 \subsubsection{Secret Manager}
 
 \subsubsection{Storage}
-Storage is a file storage service.
+Storage is a web file storage service. To store files in the service, users have to create what Google Cloud Platform calls a \textbf{Bucket}. A Bucket is just a way to categorize content, comparable to the way a Linux filesystem is structured with directory and files. For the system, one bucket was created and called \textbf{climate-data-files}. In it contains two files that are foundational to auto-updating the interactive graph referenced in Section~\ref{section:compute-engine}.
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\textwidth]{images/storage.png}
+    \caption{Google Cloud Storage}
+    \label{fig:storage}
+\end{figure}
+
+The first file is called \textbf{climate\_data\_aggregate.csv} and its contents are comma-delimited average temperature and humidity data values as well as the date. Refer to Figure~\ref{fig:climate-data} for a visual. It is the base for updating the second file called \textbf{climate\_data\_aggregate\_graph.html}. The HTML file is ultimately ends up being used for updating the interactive graph.
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=.6\textwidth]{images/climate-data-csv.png}
+    \caption{Average Climate Data from Aggregate CSV file}
+    \label{fig:climate-data}
+\end{figure}
 
 \subsection{GitHub Actions}
 With all of the development effort that has gone into building out the system, there was a need to simplify the deployment process. This process usually involved manually typing long commands in the terminal repetitively as the system iterations happened. The rule of thumb for software engineers is this: if you have to do it more than once, just automate it. This is where GitHub Actions comes into play.\\
