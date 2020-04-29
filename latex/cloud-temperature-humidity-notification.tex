@@ -227,11 +227,21 @@ As you can see, the root collections contain multiple documents with fields that
 \subsubsection{Functions}
 \label{section:functions}
 
-\subsubsection{IAM}
+\subsubsection{Identity and Access Management}
 
 \subsubsection{PubSub}
 
 \subsubsection{Scheduler}
+Scheduler is Cron job scheduler fully-managed by Google Cloud Platform. It would be wise to explain what Cron because it is not common knowledge. To put it simply, Cron is a Unix utility for scheduling arbitrary processes to run at arbitrary times. For example, Figure~\ref{fig:scheduler} shows that the system defines \textbf{0 6-21 * * * (America/Chicago)} under the frequency column. This is unix-cron format for time-based scheduling and translates to, "everyday every hour from 6 AM to 9 PM CDT."
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\textwidth]{images/scheduler.png}
+    \caption{Google Cloud Scheduler}
+    \label{fig:scheduler}
+\end{figure}
+
+What exact process is ran for the system? As the name \textbf{check-device-status} from Figure~\ref{fig:scheduler} suggests, it sends an event to a PubSub topic called \textbf{device-status} that ultimately checks whether the device status is online or offline. For more information on the details of how that works, refer to Section~\ref{section:functions}.
 
 \subsubsection{Secret Manager}
 Secret Manager provides security around creating, storing, accessing, versioning, and destroying secrets. Many companies struggle with managing their secrets and often overlook the need of security for the sake of convenience. Although Secret Manager makes it easier do this, it can be incredibly complex depending on the security needs of an organization.
@@ -315,7 +325,7 @@ Aside from the obvious pitfall of the documentation, Google Cloud Platform is po
 
 As we are on the topic of serverless functions, I believe it is important to point out that they were the big driver behind much of the background processing necessary to create the system. A lot of the other cloud services played a role but I feel that Google Cloud Functions played the most prominent role. Serverless functions are relatively new to the software engineering field, which was popularized initially by Amazon Web Services when they released their Lambda functions in 2014. Since then it has gained traction and understandably so. Unlike the traditional approach of an always-on server -- hence the word \textit{serverless} in serverless functions -- there is very little operational overhead to speak of. I believe that this is the way of the future for software and especially IoT.\\
 
-The results of the Cloud Temperature \& Humidity Notification System developed was possible due to the collective knowledge of many industries and intellectuals put together. That is something to be proud of.
+The results of the Cloud Temperature \& Humidity Notification System developed was possible due to the collective knowledge of many industries and intellectuals put together. That is something to be proud and awe of when we realize how much knowledge was accumulated over time to get to this point. It is simply amazing.
 
 \section{Conclusion}
 Being able to read ambient temperature and relative humidity and send information about it can have beneficial implications when thoughtfully used. IoT -- though as vague and broad as it is, possibly even misnomer -- has large and impactful implications on humans whether; good or bad. In this case, mostly good because the system is simply reading the given environment's climate. The Cloud Temperature \& Humidity Notification System only represents an incredibly small portion of the potential of IoT.
