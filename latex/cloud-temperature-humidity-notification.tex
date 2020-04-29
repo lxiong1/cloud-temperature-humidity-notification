@@ -234,6 +234,16 @@ As you can see, the root collections contain multiple documents with fields that
 \subsubsection{Scheduler}
 
 \subsubsection{Secret Manager}
+Secret Manager provides security around creating, storing, accessing, versioning, and destroying secrets. Many companies struggle with managing their secrets and often overlook the need of security for the sake of convenience. Although Secret Manager makes it easier do this, it can be incredibly complex depending on the security needs of an organization.
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\textwidth]{images/secret-manager.png}
+    \caption{Google Cloud Secret Manager}
+    \label{fig:secret-manager}
+\end{figure}
+
+There are currently two secrets stored as shown in Figure~\ref{fig:secret-manager}. They are automatically retrieved for usage when certain events come through the system. The \textbf{gcp\_key} secret is used to Secure Shell (SSH) into the Compute Engine instance to update the interactive graph from a trigger function, explained in Section~\ref{section:functions}. The \textbf{sms} secret is used for authenticating to an email account used solely for the purpose of sending out SMS messages, also explained the Section~\ref{section:functions}.
 
 \subsubsection{Storage}
 Storage is a web file storage service. To store files in the service, users have to create what Google Cloud Platform calls a \textbf{Bucket}. A Bucket is just a way to categorize content, comparable to the way a Linux filesystem is structured with directory and files. For the system, one bucket was created and called \textbf{climate-data-files}. In it contains two files that are foundational to auto-updating the interactive graph referenced in Section~\ref{section:compute-engine}.
