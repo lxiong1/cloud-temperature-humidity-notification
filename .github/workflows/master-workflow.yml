@@ -1,15 +1,12 @@
 name: master
-
 env:
   RUNTIME: python37
-
 on:
   push:
     branches:
       - master
-    paths:
-      - 'functions/**'
-
+    # paths:
+    #   - 'functions/**'
 jobs:
   deploy:
     name: Deploy Trigger Functions to Google Cloud Platform
@@ -17,55 +14,50 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
           python-version: 3.8.2
           architecture: x64
-
+      - name: Run Python Formatter
+        run: |
+          pip install black
+          black .
       - name: Run Python Linter
         run: |
           pip install flake8
           flake8 --filename=./functions/*py --ignore E501
-
       - name: Autheticate for Google Cloud Platform Access
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
           service_account_email: ${{ secrets.GCLOUD_EMAIL }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
-
       - name: Deploy send_data_to_firestore Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:
           TRIGGER_FUNCTION_NAME: send_data_to_firestore
           TOPIC_NAME: event-data-stream
-
       - name: Deploy send_sms_message_with_threshold Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:
           TRIGGER_FUNCTION_NAME: send_sms_message_with_threshold
           TOPIC_NAME: threshold
-
       - name: Deploy send_climate_data_file_to_storage Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:
           TRIGGER_FUNCTION_NAME: send_climate_data_file_to_storage
           TOPIC_NAME: storage
-
       - name: Deploy send_climate_data_graph_to_storage Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:
           TRIGGER_FUNCTION_NAME: send_climate_data_graph_to_storage
           TOPIC_NAME: graph
-
       - name: Deploy update_climate_data_graph_in_engine Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:
           TRIGGER_FUNCTION_NAME: update_climate_data_graph_in_engine
           TOPIC_NAME: engine-instance
-
       - name: Deploy send_sms_message_with_device_status Trigger Function
         run: cd functions/$TOPIC_NAME && gcloud functions deploy $TRIGGER_FUNCTION_NAME --trigger-topic $TOPIC_NAME --runtime ${{env.RUNTIME}}
         env:

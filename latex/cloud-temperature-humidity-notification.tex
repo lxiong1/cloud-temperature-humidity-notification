@@ -168,7 +168,7 @@ A sleeping state means that the Particle Argon turns off all unnecessary interna
 
 \subsection{Google Cloud Platform and Peripherals}
 \label{section:gcp}
-Google Cloud Platform is the most important part of the whole system. That being said, it is also important to outline the purpose of each tool used within the platform.\\
+Google Cloud Platform is the most important part of the whole system. That being said, it is also important to give a brief description ofof each service used within the platform and why.\\
 
 \textbf{Compute Engine}
 \textbf{Firestore}
@@ -184,13 +184,55 @@ Google Cloud Platform is the most important part of the whole system. That being
 \subsubsection{Climate Data Graph}
 
 \subsection{Github Actions}
+With all of the development effort that has gone into building out the system, there was a need to simplify the deployment process. This process usually involved manually typing long commands in the terminal repetitively as the system iterations happened. The rule of thumb for software engineers is this: if you have to do it more than once, just automate it. This is where Github Actions comes into play.\\
+
+Self-explanatory in its name of who the creator is, Github Actions is a platform created to automate workflows. In essence, it is a Continuous Integration (CI) and Continuous Delivery/Deployment (CD) tool for software engineers that want to simplify and reduce repetitive tasks. Github Actions has helped remove the repetitive tasks that involve deploying the source code into production.
+
+\begin{figure}[H]
+    \begin{figure}[H]
+        \lstinputlisting[firstline=1,lastline=9]{../.github/workflows/master-workflow.yml}
+        \caption{Part-one master-workflow.yml}
+        \label{fig:workflow-file-one}
+    \end{figure}
+\end{figure}
+
+Figure~\ref{fig:workflow-file-one} shows the \textbf{master-workflow.yml} containing the instructions to run on a push to the Master branch and only when functions directory's contents have been changed. Otherwise, the automated pipeline does not run. The reason for this is because the serverless functions are the only concern in terms of deployment.
+
+\begin{figure}[H]
+    \begin{figure}[H]
+        \lstinputlisting[firstline=10,lastline=35]{../.github/workflows/master-workflow.yml}
+        \caption{Part-two master-workflow.yml}
+        \label{fig:workflow-file-two}
+    \end{figure}
+\end{figure}
+
+Figure~\ref{fig:workflow-file-two} shows the setup portion of the workflow that runs after the workflow trigger criteria is met as a result of the workflow defined in Figure~\ref{fig:workflow-file-one}. This will check out the source code, setup Python and run the Python code formatter as well as the code linter, and then finish up by gaining API access to Google Cloud Platform. The secrets that are needed to gain this access is stored within Github, and will only be retrieved at runtime for security purposes. At any point that any of these steps fail, it will stop the whole pipeline and throw an error.\\
+
+The actual deployment shown in Figure~\ref{fig:workflow-file-three} is the key point of the automated pipeline. Each of the serverless functions that exist within the functions directory will be deployed and associated with each of their respective Google PubSub topics. This portion takes the longest but since it is automated, it makes deployment much faster and easier. In summary, no more manual setup and deployments in the terminal.
+
+\begin{figure}[H]
+    \begin{figure}[H]
+        \lstinputlisting[firstline=36,lastline=65]{../.github/workflows/master-workflow.yml}
+        \caption{Part-three master-workflow.yml}
+        \label{fig:workflow-file-three}
+    \end{figure}
+\end{figure}
+
+It is crucial to point out the inherent benefit of building an automated workflow on such a platform, that is, idempotency. Machines only run the instructions they have been given and nothing more. It means that an engineer can expect the same results whenever their pipeline runs. Figure~\ref{fig:workflow-visual} is a visual for engineers to see the automated pipeline step by step that ran after a push to the Master branch.\\
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\textwidth]{images/github-actions.png}
+    \caption{Github Actions Workflow Visual}
+    \label{fig:workflow-visual}
+\end{figure}
 
 \section{Discussion}
-It was quite a difficult experience integrating all the hardware and technology stack used in the Cloud Temperature \& Humidity Notification System. This was especially true of Google Cloud Platform because while there was extensive documentation on their tools, Google is a company known for renaming, rebranding, and deploying new tools often. As one can imagine, that makes it difficult to discern what was changed, what to look for, and what to use. Their documentation is not very well organized as concepts and subconcepts of a particular tool are scattered throughout the website. Ironically enough, it was more efficient -- though not exactly pleasant -- to Google search for what I needed than navigating through the Google Cloud Platform documentation.\\
+It was quite a difficult experience integrating all the hardware and technology stack used in the Cloud Temperature \& Humidity Notification System. This was especially true of Google Cloud Platform because while there was extensive documentation on their services, Google is a company known for renaming, rebranding, and deploying new services often. As one can imagine, that makes it difficult to discern what was changed, what to look for, and what to use. Their documentation is not very well organized as concepts and subconcepts of a particular service are scattered throughout the website. Ironically enough, it was more efficient -- though not exactly pleasant -- to Google search for what I needed than navigating through the Google Cloud Platform documentation.\\
 
 Aside from the obvious pitfall of the documentation, Google Cloud Platform is powerful. Google manages and reduces a lot of work that would otherwise be placed as responsibility for a software engineer. As engineers, it is only natural to selectively point out aspects of a system that are nuances but truly software is a collection of reused code that makes life easier for them. Take Google Cloud functions for example, an engineer only has to write the code to handle incoming events and Google manages the rest. The rest comprising of buying, maintaining, and upgrading hardware to host servers for computational needs, developing security practices around the serverless functions, developing logging abilities on all existing functions, and the list just goes on.\\
 
-As we are on the topic of serverless functions, I believe it is important to point out that they were the big driver behind much of the background processing necessary to create the system. A lot of other tools played a role but I feel that Google Cloud Functions played the most prominent role. Serverless functions are relatively new to the software engineering field, which was popularized initially by Amazon Web Services when they released their Lambda functions in 2014. Since then it has gained traction and understandably so. Unlike the traditional approach of an always-on server -- hence the word \textit{serverless} in serverless functions -- there is very little operational overhead to speak of. I believe that this is the way of the future for software and especially IoT.\\
+As we are on the topic of serverless functions, I believe it is important to point out that they were the big driver behind much of the background processing necessary to create the system. A lot of the other cloud servicse played a role but I feel that Google Cloud Functions played the most prominent role. Serverless functions are relatively new to the software engineering field, which was popularized initially by Amazon Web Services when they released their Lambda functions in 2014. Since then it has gained traction and understandably so. Unlike the traditional approach of an always-on server -- hence the word \textit{serverless} in serverless functions -- there is very little operational overhead to speak of. I believe that this is the way of the future for software and especially IoT.\\
 
 The results of the Cloud Temperature \& Humidity Notification System developed was possible due to the collective knowledge of many industries and intellectuals put together. That is something to be proud of.
 
