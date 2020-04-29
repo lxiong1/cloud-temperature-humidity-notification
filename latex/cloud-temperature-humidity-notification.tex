@@ -54,7 +54,7 @@ All three of these products measure temperature and humidity and have their valu
 \subsection{AcuRite 01166M 3-Sensor Indoor Monitoring}
 AcuRite 1166M is packaged with 3 sensor units along with what they call a \textit{smartHUB}. The name is self-explanatory, it is the central communication piece for the 3 sensors. The max connection capacity for the smartHUB is 10 sensors. These sensors will read in the climate information of the environment and send it over to the smartHUB, which will then send information over the network to be processed and viewed online. There are some inherent flaws with this system as I will explain.\\
 
-With the max capacity being 10 sensors connected to the smartHUB, it is only usable in a home environment and even then, a user may want more sensors if they have a larger home. The reason for the limitation is the design of having sensors centered around the smartHUB, and not standalone pieces that can interact with a network. The sensors are nothing without the smartHUB, therefore renders the system useless if it breaks. It also adds one more layer of complexity that is unnecessary for the user. Unnecessary because it is not doing anything complex enough to justify a central hub.
+With the max capacity being 10 sensors connected to the smartHUB, it is only usable in a home environment and even then, a user may want more sensors if they have a larger home. The reason for the limitation is the design of having sensors centered around the smartHUB, and not standalone pieces that can interact with a network. The sensors are nothing without the smartHUB, therefore renders the system useless if it breaks. It also adds one more layer of complexity that is unnecessary for the user. Unnecessary because it is not doing anything complex enough to justify a central hub.\\
 
 Another issue is reliability. The range at which these sensors can communicate with the smartHUB is limited and depending on the structure, materials, and size of the home can make it more difficult to reliably transfer information from sensor to hub. This issue of reliability is further enforced by users of the system.
 
@@ -89,7 +89,7 @@ To satisfy the need of giving a user useful information about temperature and hu
     \item System shall create a daily graph aggregating temperature and humidity averages over days at 9 PM CDT
 \end{itemize}
 
-\subsection{Event-Driven Architecture}
+\subsection{Event-Driven Serverless Architecture}
 The approach taken for the system as mentioned before is heavy on the software side which manifests into an event-driven serverless architecture. An event-driven serverless architecture in the system context allows the climate data readings to be sent as events, processed based on its event type, and have actions performed without the need for standing up servers. The following are benefits of the said architecture:
 
 \begin{itemize}
@@ -124,17 +124,17 @@ I will preface that the Cloud Temperature \& Humidity Notification System is hea
 	\label{fig:breadboard_schematic}
 \end{figure}
 
-Figure~\ref{fig:breadboard_schematic} comprises the following hardware components:
+Figure~\ref{fig:breadboard_schematic} is the bread schematic showing how all of the hardware components are connected together. This enables the Particle Argon to read and publish climate data events. With the battery, it makes the setup standalone and charged only when needed. Below is a brief description of each component.\\
 
-\begin{itemize}
-	\item Particle Argon — IoT development kit for connecting and sending information over the network
-	\item Adafruit Si7021 — Temperature and humidity sensor breakout board
-	\item Breadboard — Base to create circuits and prototype electronics
-	\item Jumper Wires — Cables able to connect components
-	\item Lithium Ion Polymer Battery 1000 mAh — A power source for the connected components
-\end{itemize}
+\textbf{Particle Argon} — An IoT development kit for connecting to and sending information over the network.\\
 
-\newpage
+\textbf{Adafruit Si7021} — A temperature and humidity sensor breakout board that provides the ability to read a given environment's climate.\\
+
+\textbf{Breadboard} — A physical base that provides the ability to create circuits and prototype electronics.\\
+
+\textbf{Jumper Wires} — Cables that are able to electrically connect components.\\
+
+\textbf{Lithium Ion Polymer Battery 1000 mAh} — A power source for the connected components.
 
 \subsection{Particle Argon and Particle Cloud}
 Particle Argon is flashed with firmware written with C code. It is used with Particle's API and the Adafruit Si7021 helper library. Understanding the Particle ecosystem's role in the system will reveal the scope of its interactions in the event-driven serverless architectural decision.
@@ -173,18 +173,67 @@ Concerning the end of the day as well as a variable called \textbf{publishInterv
 
 A sleeping state means that the Particle Argon turns off all unnecessary internal processes that consume energy and maintains a low-power state for a duration of a configured time. There are two main modes of sleep state that Particle Argon can go into: \textbf{STOP} and \textbf{HIBERNATE}. The decision was to use the \textbf{STOP} sleeping mode because it provides the opportunity to keep the network connection alive while it is in a low-power state. \textbf{HIBERNATE} does not allow this, and if it was used, it would require the Particle Argon to completely establish a new connection every time it wakes up from the specified duration of \textbf{publishIntervalMilliseconds}; defeating the point of using it.
 
-\subsection{Google Cloud Platform and Peripherals}
+\subsection{Google Cloud Platform Services}
 \label{section:gcp}
-Google Cloud Platform is the most important part of the whole system. That being said, it is also important to give a brief description ofof each service used within the platform and why.\\
+Google Cloud Platform is the most important part of the whole system. That being said, it is also important to give a brief description of each service used within the platform and why.
 
-\textbf{Compute Engine}
-\textbf{Firestore}
-\textbf{Functions}
-\textbf{IAM}
-\textbf{PubSub}
-\textbf{Scheduler}
-\textbf{Secret Manager}
-\textbf{Storage}
+\subsubsection{Compute Engine}
+A virtual machine instance that is user-configured. This is as opposed to App Engine that is a fully-managed by Google Cloud Platform. The instance will be used to host a web server. With that, the system will have the ability to deliver a static website containing an interactive graph. Figure~\ref{fig:interactive-graph} shows ambient temperature and relative humidity daily averages that are data points on the interactive graph. The user will be able to see the changes over time and adjust the climate in their environment according to the purpose of what they are trying to achieve. \
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{images/interactive-graph.png}
+	\caption{Interactive Graph of Climate Data}
+	\label{fig:interactive-graph}
+\end{figure}
+
+Previously it was mentioned that a web server was used to delivery the interactive graph, but the specifics of how that was accomplished were not explained. On a high level, it is a combination of using Python and several software components which include Plotly, Docker, NGINX, and a separate project repository. Below will explain what each of these software components are and the role they play in the creation of the graph.\\
+
+\textbf{Plotly} — \\
+
+\textbf{Docker} — \\
+
+\textbf{NGINX} — \\
+
+\textbf{Plotly} — \\
+
+\subsubsection{Firestore}
+A NoSQL document database that provides data persistence across the system. Specifically, this database is used for storing three major collections that assist in the state of the system. Figure~\ref{fig:contact-attempt-history},~\ref{fig:humidity}, and~\ref{fig:temperature} shows the different root collections and their respective documents.
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{images/database-contact-attempt-history.png}
+	\caption{Contact Attempt History Document}
+	\label{fig:contact-attempt-history}
+\end{figure}
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{images/database-humidity.png}
+	\caption{Relative Humidity Document}
+	\label{fig:humidity}
+\end{figure}
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{images/database-temperature.png}
+	\caption{Ambient Temperture Document}
+	\label{fig:temperature}
+\end{figure}
+
+As you can see, the root collections contain multiple documents with fields that contain data values. Each time an climate data or contact attempt event comes through the system, a new document is created for each of those events to ensure that the system understands what historically has occurred.
+
+\subsubsection{Functions}
+
+\subsubsection{IAM}
+
+\subsubsection{PubSub}
+
+\subsubsection{Scheduler}
+
+\subsubsection{Secret Manager}
+
+\subsubsection{Storage}
 
 \subsubsection{SMS Notification}
 

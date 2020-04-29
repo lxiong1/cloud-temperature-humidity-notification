@@ -2,7 +2,7 @@ from google.cloud import secretmanager
 import paramiko
 from io import StringIO
 
-PROJECT_NAME = "climate-data-graph-scheduler"
+PROJECT_NAME = "climate-data-graph-updater"
 
 
 def update_climate_data_graph_in_engine(event, context):
