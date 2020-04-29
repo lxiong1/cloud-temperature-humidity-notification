@@ -31,11 +31,11 @@
 \section{Context}
 The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify users of temperature and humidity fluctuations within their living environment through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to on the web. Behind the scenes, most computation is abstracted away from the user by using the Google Cloud Platform. The initiation of these functionalities start from the ambient temperature and relative humidity readings being published by the Particle Argon.\\
 
-Working within the limitations of a small apartment and time allotted for the project, I cannot realize the full potential of the system. This project represents a single IoT device that enacts the above-mentioned functionalities. One can imagine, however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached configured threshold levels for each device. They would then be able to see data points for each specified area of the home. Ideally, aspects of the system such as climate data publishing intervals, setting climate threshold and maximum notification intervals, and timezones should be configurable. With that said, the project seeks a minimum viable product. That is, the system will notify users of climate thresholds being met and device status through SMS notification as well as graphing average climate per day for viewing averages over days. User configuration will be beyond the minimum viable product as it would require additional development of a mobile or web application.\\
+This system represents a single IoT device that performs the above-mentioned functionalities. One can imagine, however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached configured threshold levels for each device. They would then be able to see data points for each specified area of the home. Ideally, aspects of the system such as climate data publishing intervals, setting climate threshold and maximum notification intervals, and timezones should be configurable. With that said, the project seeks a minimum viable product. That is, the system will notify users of climate thresholds being met and device status through SMS notification as well as graphing average climate per day for viewing averages over days. User configuration will be beyond the minimum viable product as it would require additional development of a mobile or web application.\\
 
 Though the system is targeted for the home living environment, it can be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where the ambient temperature hovers in the range of 65 to 85 degrees Fahrenheit over a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.\\
 
-The Cloud Temperature \& Humidity Notification System source code can be found in GitHub linked here: \\\url{https://github.com/lxiong1/cloud-temperature-humidity-notification}.
+The Cloud Temperature \& Humidity Notification System source code can be found in GitHub linked here: \\\\\url{https://github.com/lxiong1/cloud-temperature-humidity-notification}.
 
 \section{Problem}
 The problem trying to be solved is giving the user climate data about their living environment. Certain ranges of temperature and humidity affect humans in ways that are detrimental to their health. For example, low humidity environments --characterized as 30\% relative humidity and below -- is a condition for being prone to respiratory infections, dry eyes, and itchy irritated skin. High humidity environments -- characterized as 60\% and above -- is a condition for bacterial and mold growth, a catalyst for the decomposition of organic materials, and the attraction of bugs and insects to the home. A way to solve that problem is to give a renter or homeowner actionable data to understand that their living environment needs change. That is where the Cloud Temperature \& Humidity Notification System comes in.
@@ -228,8 +228,41 @@ As you can see, the root collections contain multiple documents with fields that
 \label{section:functions}
 
 \subsubsection{Identity and Access Management}
+Identity and Access Management (IAM) is a service that provides the ability to manage roles and permissions on Google Cloud Platform resources. This is extremely important to manage correctly as giving people more access than they need can potentially compromise a system entirely. Google Cloud Platform takes the approach of a zero-trust security model, so existing resources have to be given appropriate roles and permissions by the administrator.
 
 \subsubsection{PubSub}
+PubSub is a aynchronous middleware messaging service. The base for this service revolves around three major concepts of topics, subscriptions, and messages. Topics are where messages are sent to when published. Subscriptions are the message retrievers when a message is published to the topic they are associated with. Messages are are the data published to topics and streamed to subscribers.
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\textwidth]{images/pubsub-topics.png}
+    \caption{Google Cloud PubSub Topics}
+    \label{fig:pubsub-topics}
+\end{figure}
+
+The advantage of using PubSub is that messages can be sent from anywhere and at any scale. There is no need to manage scaling as PubSub enacts the scaling based on the demand. In the system context, messages are the events published by Particle Argon. Figure~\ref{fig:pubsub-topics} shows all of the existing topics that support the events processing. These topics are the first point of contact with the Particle ecosystem, starting from the Particle Argon publishing its events to the Particle Cloud and those events being webhooked into the PubSub topics.\\
+
+Every time an event is published to a topic, a subscribed trigger function initiates. Below is a mapping of topics and their subscribed trigger functions.\\
+
+\begin{lstlisting}
+    TRIGGER_FUNCTION_NAME: send_data_to_firestore
+    TOPIC_NAME: event-data-stream
+
+    TRIGGER_FUNCTION_NAME: send_sms_message_with_threshold
+    TOPIC_NAME: threshold
+
+    TRIGGER_FUNCTION_NAME: send_climate_data_file_to_storage
+    TOPIC_NAME: storage
+
+    TRIGGER_FUNCTION_NAME: send_climate_data_graph_to_storage
+    TOPIC_NAME: graph
+
+    TRIGGER_FUNCTION_NAME: update_climate_data_graph_in_engine
+    TOPIC_NAME: engine-instance
+
+    TRIGGER_FUNCTION_NAME: send_sms_message_with_device_status
+    TOPIC_NAME: device-status
+\end{lstlisting}
 
 \subsubsection{Scheduler}
 Scheduler is Cron job scheduler fully-managed by Google Cloud Platform. It would be wise to explain what Cron because it is not common knowledge. To put it simply, Cron is a Unix utility for scheduling arbitrary processes to run at arbitrary times. For example, Figure~\ref{fig:scheduler} shows that the system defines \textbf{0 6-21 * * * (America/Chicago)} under the frequency column. This is unix-cron format for time-based scheduling and translates to, "everyday every hour from 6 AM to 9 PM CDT."
