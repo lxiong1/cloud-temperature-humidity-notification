@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  29 APR 2020 12:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  29 APR 2020 13:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -288,7 +288,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--57
  []
 
 [4] [5]
-<images/breadboard-schematic.png, id=168, 363.759pt x 244.915pt>
+<images/breadboard-schematic.png, id=157, 363.759pt x 244.915pt>
 File: images/breadboard-schematic.png Graphic file (type png)
 <use images/breadboard-schematic.png>
 Package pdftex.def Info: images/breadboard-schematic.png  used on input line 122.
@@ -366,7 +366,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--172
  []
 
 [10]
-<images/interactive-graph.png, id=252, 3850.385pt x 1957.3125pt>
+<images/interactive-graph.png, id=243, 3850.385pt x 1957.3125pt>
 File: images/interactive-graph.png Graphic file (type png)
 <use images/interactive-graph.png>
 Package pdftex.def Info: images/interactive-graph.png  used on input line 185.
@@ -381,7 +381,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--192
 
  []
 
-
+[11 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/interactive-graph.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 194--194
 
  []
@@ -391,89 +391,85 @@ Underfull \hbox (badness 10000) in paragraph at lines 196--196
 
  []
 
-[11 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/interactive-graph.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 198--198
-
- []
-
-<images/database-contact-attempt-history.png, id=261, 2661.945pt x 568.1225pt>
+<images/database-contact-attempt-history.png, id=255, 2661.945pt x 568.1225pt>
 File: images/database-contact-attempt-history.png Graphic file (type png)
 <use images/database-contact-attempt-history.png>
 Package pdftex.def Info: images/database-contact-attempt-history.png  used on input line 205.
 (pdftex.def)             Requested size: 345.0pt x 73.62445pt.
-<images/database-humidity.png, id=262, 2680.0125pt x 582.175pt>
+<images/database-humidity.png, id=256, 2680.0125pt x 582.175pt>
 File: images/database-humidity.png Graphic file (type png)
 <use images/database-humidity.png>
 Package pdftex.def Info: images/database-humidity.png  used on input line 212.
 (pdftex.def)             Requested size: 345.0pt x 74.93921pt.
-<images/database-temperature.png, id=263, 2663.9525pt x 582.175pt>
+[12 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-contact-attempt-history.png>]
+<images/database-temperature.png, id=265, 2663.9525pt x 582.175pt>
 File: images/database-temperature.png Graphic file (type png)
 <use images/database-temperature.png>
 Package pdftex.def Info: images/database-temperature.png  used on input line 219.
 (pdftex.def)             Requested size: 345.0pt x 75.39226pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--243
+Underfull \hbox (badness 10000) in paragraph at lines 241--241
 
  []
 
-[12 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-contact-attempt-history.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-humidity.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-temperature.png>] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml
+[13 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-humidity.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-temperature.png>] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 33.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)) [13]
-Underfull \hbox (badness 10000) in paragraph at lines 265--265
+)) [14]
+Underfull \hbox (badness 10000) in paragraph at lines 263--263
 
  []
 
-(/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) [14]
-Underfull \hbox (badness 10000) in paragraph at lines 277--277
+(/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) [15]
+Underfull \hbox (badness 10000) in paragraph at lines 275--275
 
  []
 
-[15]
-<images/github-actions.png, id=365, 3810.235pt x 1933.2225pt>
+[16]
+<images/github-actions.png, id=363, 3810.235pt x 1933.2225pt>
 File: images/github-actions.png Graphic file (type png)
 <use images/github-actions.png>
-Package pdftex.def Info: images/github-actions.png  used on input line 281.
+Package pdftex.def Info: images/github-actions.png  used on input line 279.
 (pdftex.def)             Requested size: 345.0pt x 175.04446pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--285
+
+ []
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 287--287
 
  []
 
-
+[17 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/github-actions.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 289--289
 
  []
 
-[16 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/github-actions.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 291--291
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 298.
-[17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 298.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 296.
+[18]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 296.
  (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 298.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 298.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 296.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 296.
 Package rerunfilecheck Info: File `cloud-temperature-humidity-notification.out' has not changed.
-(rerunfilecheck)             Checksum: 5382F06B1ACFC1ECEA638973F43C757A;1728.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 298.
+(rerunfilecheck)             Checksum: 4BA553B950AE7AE4A6F3B3EFF8FB703B;1573.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 296.
  ) 
 Here is how much of TeX's memory you used:
- 7816 strings out of 481239
- 120422 string characters out of 5920377
- 749948 words of memory out of 5000000
+ 7815 strings out of 481239
+ 120384 string characters out of 5920377
+ 749994 words of memory out of 5000000
  22774 multiletter control sequences out of 15000+600000
  537907 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  34i,6n,53p,1296b,1446s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (17 pages, 1055298 bytes).
+Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (18 pages, 1057790 bytes).
 PDF statistics:
- 449 PDF objects out of 1000 (max. 8388607)
- 404 compressed objects within 5 object streams
- 173 named destinations out of 1000 (max. 500000)
- 239 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 447 PDF objects out of 1000 (max. 8388607)
+ 401 compressed objects within 5 object streams
+ 172 named destinations out of 1000 (max. 500000)
+ 223 words of extra memory for PDF output out of 10000 (max. 10000000)
 

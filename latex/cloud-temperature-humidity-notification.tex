@@ -29,13 +29,13 @@
 \obeylines
 
 \section{Context}
-The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify users of temperature and humidity fluctuations within their living environment through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to on the web. Behind the scenes, most computation is abstracted away from the user by using Google Cloud Platform. The initiation of these functionalities start from the ambient temperature and relative humidity readings being published by the Particle Argon.\\
+The Cloud Temperature \& Humidity Notification System is about an IoT system that gives the ability to notify users of temperature and humidity fluctuations within their living environment through the usage of a Simple Message Service, which is also known as SMS. The system will also notify a user if the Particle Argon is offline by checking that data is being sent and stored in the database. Though this is the main concern of the system, it also allows users to visualize their daily climate averages in an interactive graph. The graph is automatically updated for the users to view whenever they want to on the web. Behind the scenes, most computation is abstracted away from the user by using the Google Cloud Platform. The initiation of these functionalities start from the ambient temperature and relative humidity readings being published by the Particle Argon.\\
 
 Working within the limitations of a small apartment and time allotted for the project, I cannot realize the full potential of the system. This project represents a single IoT device that enacts the above-mentioned functionalities. One can imagine, however, being able to send in-home area location data and climate readings with a multiple of these IoT devices scattered across a home with multiple rooms and stories. A user would be notified where in the house and when the climate has reached configured threshold levels for each device. They would then be able to see data points for each specified area of the home. Ideally, aspects of the system such as climate data publishing intervals, setting climate threshold and maximum notification intervals, and timezones should be configurable. With that said, the project seeks a minimum viable product. That is, the system will notify users of climate thresholds being met and device status through SMS notification as well as graphing average climate per day for viewing averages over days. User configuration will be beyond the minimum viable product as it would require additional development of a mobile or web application.\\
 
 Though the system is targeted for the home living environment, it can be used for environments that require careful monitoring. Take a fermented product like kombucha for instance; it needs to be fermented in an environment where the ambient temperature hovers in the range of 65 to 85 degrees Fahrenheit over a week to multiple weeks. Low temperatures will either stop or dramatically slow down the fermentation process. High temperatures will quicken the fermentation process but also increases the risk of unwanted bacteria or mold growth that would ruin the product. Striking a balance with temperature for optimal conditions is difficult without information. The usage is only limited to the imagination.\\
 
-The The Cloud Temperature \& Humidity Notification System source code can be found in Github linked here: \\\url{https://github.com/lxiong1/cloud-temperature-humidity-notification}.
+The Cloud Temperature \& Humidity Notification System source code can be found in GitHub linked here: \\\url{https://github.com/lxiong1/cloud-temperature-humidity-notification}.
 
 \section{Problem}
 The problem trying to be solved is giving the user climate data about their living environment. Certain ranges of temperature and humidity affect humans in ways that are detrimental to their health. For example, low humidity environments --characterized as 30\% relative humidity and below -- is a condition for being prone to respiratory infections, dry eyes, and itchy irritated skin. High humidity environments -- characterized as 60\% and above -- is a condition for bacterial and mold growth, a catalyst for the decomposition of organic materials, and the attraction of bugs and insects to the home. A way to solve that problem is to give a renter or homeowner actionable data to understand that their living environment needs change. That is where the Cloud Temperature \& Humidity Notification System comes in.
@@ -44,9 +44,9 @@ The problem trying to be solved is giving the user climate data about their livi
 From market researching, there are a couple of products that have similar functionalities:
 
 \begin{itemize}
-	\item AcuRite 01166M 3-Sensor Indoor Monitoring
-	\item Govee Temperature Humidity Monitor
-	\item Proteus AMBIO
+    \item AcuRite 01166M 3-Sensor Indoor Monitoring
+    \item Govee Temperature Humidity Monitor
+    \item Proteus AMBIO
 \end{itemize}
 
 All three of these products measure temperature and humidity and have their value propositions. We'll take a look at what they do and how they differ from this system.
@@ -69,20 +69,20 @@ This section will describe the minimum viable product requirements and the archi
 To satisfy the need of giving a user useful information about temperature and humidity in their targeted environment, the following are the minimum viable product requirements:
 
 \begin{itemize}
-	\item All notifications sent to the user shall be an SMS message
-	\item Notifications sent to the user shall be based on the following criteria
-	      \begin{itemize}
-		      \item Temperature upper threshold shall be set to lesser than or equal to 75 degrees Fahrenheit
-		      \item Temperature lower threshold shall be set to greater than or equal to 65 degrees Fahrenheit
-		      \item Humidity upper threshold shall be set to lesser than or equal to 60 percent relative humidity
-		      \item Humidity lower threshold shall be set to greater than or equal to 30 percent relative humidity
-	      \end{itemize}
-	\item Minimum 1-hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below the threshold value
-	\item The status of the device publishing temperature and humidity data must be checked every hour
-	      \begin{itemize}
-		      \item When device is online, nothing shall happen
-		      \item When device is offline, user shall be notified
-	      \end{itemize}
+    \item All notifications sent to the user shall be an SMS message
+    \item Notifications sent to the user shall be based on the following criteria
+          \begin{itemize}
+              \item Temperature upper threshold shall be set to lesser than or equal to 75 degrees Fahrenheit
+              \item Temperature lower threshold shall be set to greater than or equal to 65 degrees Fahrenheit
+              \item Humidity upper threshold shall be set to lesser than or equal to 60 percent relative humidity
+              \item Humidity lower threshold shall be set to greater than or equal to 30 percent relative humidity
+          \end{itemize}
+    \item Minimum 1-hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below the threshold value
+    \item The status of the device publishing temperature and humidity data must be checked every hour
+          \begin{itemize}
+              \item When the device is online, nothing shall happen
+              \item When the device is offline, the user shall be notified
+          \end{itemize}
     \item Working hours shall be defined as 6 AM to 9 PM CDT
     \item Device shall publish every 15 minutes during the working hours
     \item Device shall publish every 30 minutes during the non-working hours
@@ -93,21 +93,21 @@ To satisfy the need of giving a user useful information about temperature and hu
 The approach taken for the system as mentioned before is heavy on the software side which manifests into an event-driven serverless architecture. An event-driven serverless architecture in the system context allows the climate data readings to be sent as events, processed based on its event type, and have actions performed without the need for standing up servers. The following are benefits of the said architecture:
 
 \begin{itemize}
-	\item Loose coupling between software components
-	\item Automatically scale based on user demand
-	\item All processing is driven by events
-	\item No need for management of servers
-	\item Inherent stateless nature
-	\item Overall cost reduction versus managed servers
+    \item Loose coupling between software components
+    \item Automatically scale based on user demand
+    \item All processing is driven by events
+    \item No need for management of servers
+    \item Inherent stateless nature
+    \item Overall cost reduction versus managed servers
 \end{itemize}
 
 While these benefits are good to have, every architectural decision has its drawbacks. The following  are drawbacks of the said architecture:
 
 \begin{itemize}
-	\item Each serverless function must provide its own packaged dependencies
-	\item Having a large number of serverless functions can become unwieldy
-	\item Long-running processes are not fit for serverless functions
-	\item Handling system state amongst stateless functions can be tricky
+    \item Each serverless function must provide its own packaged dependencies
+    \item Having a large number of serverless functions can become unwieldy
+    \item Long-running processes are not fit for serverless functions
+    \item Handling system state amongst stateless functions can be tricky
 \end{itemize}
 
 Using an event-driven serverless architecture made sense for this system, as the needs of the system are fulfilled automatically on publishing data without any manual intervention.
@@ -118,13 +118,13 @@ I will preface that the Cloud Temperature \& Humidity Notification System is hea
 \subsection{Hardware Components}
 \label{section:hardware}
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/breadboard-schematic.png}
-	\caption{Breadboard Schematic}
-	\label{fig:breadboard_schematic}
+    \center
+    \includegraphics[width=\textwidth]{images/breadboard-schematic.png}
+    \caption{Breadboard Schematic}
+    \label{fig:breadboard_schematic}
 \end{figure}
 
-Figure~\ref{fig:breadboard_schematic} is the bread schematic showing how all of the hardware components are connected together. This enables the Particle Argon to read and publish climate data events. With the battery, it makes the setup standalone and charged only when needed. Below is a brief description of each component.\\
+Figure~\ref{fig:breadboard_schematic} is the bread schematic showing how all of the hardware components are connected. This enables the Particle Argon to read and publish climate data events. With the battery, it makes the setup standalone and charged only when needed. Below is a brief description of each component.\\
 
 \textbf{Particle Argon} — An IoT development kit for connecting to and sending information over the network.\\
 
@@ -132,7 +132,7 @@ Figure~\ref{fig:breadboard_schematic} is the bread schematic showing how all of 
 
 \textbf{Breadboard} — A physical base that provides the ability to create circuits and prototype electronics.\\
 
-\textbf{Jumper Wires} — Cables that are able to electrically connect components.\\
+\textbf{Jumper Wires} — Cables that can electrically connect components.\\
 
 \textbf{Lithium Ion Polymer Battery 1000 mAh} — A power source for the connected components.
 
@@ -140,31 +140,31 @@ Figure~\ref{fig:breadboard_schematic} is the bread schematic showing how all of 
 Particle Argon is flashed with firmware written with C code. It is used with Particle's API and the Adafruit Si7021 helper library. Understanding the Particle ecosystem's role in the system will reveal the scope of its interactions in the event-driven serverless architectural decision.
 
 \begin{minipage}[c]{\textwidth}
-	\begin{figure}[H]
-		\lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
-		\caption{setup() function}
-		\label{fig:setup}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
+        \caption{setup() function}
+        \label{fig:setup}
+    \end{figure}
 \end{minipage}\ \\\\
 
 The \textbf{setup()} as shown in Figure~\ref{fig:setup} is important here for two reasons. The first part is that the Particle Argon is in default timezone of Universal Time Coordinated (UTC) which differs from the timezone I live in is Central Daylight Time (CDT). To be able to represent the timezone difference, setting the default timezone with an offset of minus 5 hours is required. The second part is making sure that the Adafruit Si7021 is enabled after being initialized because it is the central piece for reading ambient temperature and relative humidity from a given environment.
 
 \begin{minipage}[c]{\textwidth}
-	\begin{figure}[H]
-		\lstinputlisting[language=C,firstline=14,lastline=37]{../src/particle-argon-temperature-humidity.ino}
-		\caption{loop() function}
-		\label{fig:loop}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[language=C,firstline=14,lastline=37]{../src/particle-argon-temperature-humidity.ino}
+        \caption{loop() function}
+        \label{fig:loop}
+    \end{figure}
 \end{minipage}\ \\\\
 
 In Figure~\ref{fig:loop}, the \textbf{loop()} function shows that temperature and humidity are being read with the sensor object. They are then used as values to publish to the Particle Cloud. From that point on they are passed to Google Cloud Platform. However, there will be a further explanation of how this integration works and what processes happen on the Google Cloud Platform in Section~\ref{section:gcp}.
 
 \begin{minipage}[c]{\textwidth}
-	\begin{figure}[H]
-		\lstinputlisting[language=C,firstline=39,lastline=55]{../src/particle-argon-temperature-humidity.ino}
-		\caption{isEndOfDay() function}
-		\label{fig:endofday}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[language=C,firstline=39,lastline=55]{../src/particle-argon-temperature-humidity.ino}
+        \caption{isEndOfDay() function}
+        \label{fig:endofday}
+    \end{figure}
 \end{minipage}\ \\\\
 
 Beyond publishing the climate values, the \textbf{loop()} function checks whether the day has ended from the perspective of the system. The end of the day is defined as code in Figure~\ref{fig:endofday}. Before it was mentioned that a UTC offset of minus 5 hours was applied in the \textbf{setup()} function, and this is where it comes into context. The end of the day is 9 PM CDT, which is equivalent to 21 in a 24-hour format. Once the system understands that it is the end of the day, an event is published to update a file containing daily climate average aggregates for the day. To understand the update itself will require digging into the Google Cloud Platform integration. As written before, this will be further explained in Section~\ref{section:gcp}.\\
@@ -178,52 +178,53 @@ A sleeping state means that the Particle Argon turns off all unnecessary interna
 Google Cloud Platform is the most important part of the whole system. That being said, it is also important to give a brief description of each service used within the platform and why.
 
 \subsubsection{Compute Engine}
-A virtual machine instance that is user-configured. This is as opposed to App Engine that is a fully-managed by Google Cloud Platform. The instance will be used to host a web server. With that, the system will have the ability to deliver a static website containing an interactive graph. Figure~\ref{fig:interactive-graph} shows ambient temperature and relative humidity daily averages that are data points on the interactive graph. The user will be able to see the changes over time and adjust the climate in their environment according to the purpose of what they are trying to achieve. \
+Compute Engine is a virtual machine instance that is user-configured. This is as opposed to App Engine that is a fully-managed by Google Cloud Platform. The instance will be used to host a web server. With that, the system will have the ability to deliver a static website containing an interactive graph. Figure~\ref{fig:interactive-graph} shows ambient temperature and relative humidity daily averages that are data points on the interactive graph. The user will be able to see the changes over time and adjust the climate in their environment according to the purpose of what they are trying to achieve. It can be accessed in the link here: \url{http://35.238.110.48:8080}.
 
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/interactive-graph.png}
-	\caption{Interactive Graph of Climate Data}
-	\label{fig:interactive-graph}
+    \center
+    \includegraphics[width=\textwidth]{images/interactive-graph.png}
+    \caption{Interactive Graph of Climate Data}
+    \label{fig:interactive-graph}
 \end{figure}
 
-Previously it was mentioned that a web server was used to delivery the interactive graph, but the specifics of how that was accomplished were not explained. On a high level, it is a combination of using Python and several software components which include Plotly, Docker, NGINX, and a separate project repository. Below will explain what each of these software components are and the role they play in the creation of the graph.\\
+Previously it was mentioned that a web server was used to deliver the interactive graph, but the specifics of how that was accomplished were not explained. On a high level, it is a combination of using Python and several software components including Plotly, Docker, NGINX, and a separate project repository. Below will explain what each of these software components is and the role they play in the creation and delivery of the graph to the web.\\
 
-\textbf{Plotly} — \\
+\textbf{Plotly} — A Python library to help develop custom graphs. It offers many graph types and visual options. To show climate data in a visually simple way, a line graph was used to indicate changing ambient temperature and relative humidity over time.\\
 
-\textbf{Docker} — \\
+\textbf{Docker} — An OS-level containerization tool that can package software. Docker has a registry called Docker Hub full of container images created by the open-source community. These container images can be pulled down to a local machine and be used on-demand and/or developed on top of. These containers can be thought of as software building blocks to assist in software development.\\
 
-\textbf{NGINX} — \\
+\textbf{NGINX} — A web server that provides communication between client and server via HTTP. NGINX has container images stored in Docker Hub that is publicly accessible, which in this context, is used for standing up a web server in Compute Engine.\\
 
-\textbf{Plotly} — \\
+\textbf{Climate Data Graph Updater} — Updates the interactive graph on a daily basis when the \textbf{update\_climate\_data\_graph\_in\_engine()} trigger function is initiated, referenced in Section~\ref{section:functions}. This sits in a different GitHub repository from the Cloud Temperature \& Humidity Notification repository. The decision to isolate this portion of functionality was due to the lower operational cost of pulling it down from GitHub from the Compute Engine instance. It also separates the concern from the system perspective. The GitHub repository is linked here: \url{https://github.com/lxiong1/climate-data-graph-updater}.
 
 \subsubsection{Firestore}
-A NoSQL document database that provides data persistence across the system. Specifically, this database is used for storing three major collections that assist in the state of the system. Figure~\ref{fig:contact-attempt-history},~\ref{fig:humidity}, and~\ref{fig:temperature} shows the different root collections and their respective documents.
+Firestore is a NoSQL document database that provides data persistence across the system. Specifically, this database is used for storing three major collections that assist in the state of the system. Figure~\ref{fig:contact-attempt-history},~\ref{fig:humidity}, and~\ref{fig:temperature} shows the different root collections and their respective documents.
 
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/database-contact-attempt-history.png}
-	\caption{Contact Attempt History Document}
-	\label{fig:contact-attempt-history}
+    \center
+    \includegraphics[width=\textwidth]{images/database-contact-attempt-history.png}
+    \caption{Contact Attempt History Document}
+    \label{fig:contact-attempt-history}
 \end{figure}
 
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/database-humidity.png}
-	\caption{Relative Humidity Document}
-	\label{fig:humidity}
+    \center
+    \includegraphics[width=\textwidth]{images/database-humidity.png}
+    \caption{Relative Humidity Document}
+    \label{fig:humidity}
 \end{figure}
 
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/database-temperature.png}
-	\caption{Ambient Temperture Document}
-	\label{fig:temperature}
+    \center
+    \includegraphics[width=\textwidth]{images/database-temperature.png}
+    \caption{Ambient Temperture Document}
+    \label{fig:temperature}
 \end{figure}
 
-As you can see, the root collections contain multiple documents with fields that contain data values. Each time an climate data or contact attempt event comes through the system, a new document is created for each of those events to ensure that the system understands what historically has occurred.
+As you can see, the root collections contain multiple documents with fields that contain data values. Each time a climate data or contact attempt event comes through the system, a new document is created for each of those events to ensure that the system understands what historically has occurred.
 
 \subsubsection{Functions}
+\label{section:functions}
 
 \subsubsection{IAM}
 
@@ -234,61 +235,58 @@ As you can see, the root collections contain multiple documents with fields that
 \subsubsection{Secret Manager}
 
 \subsubsection{Storage}
+Storage is a file storage service.
 
-\subsubsection{SMS Notification}
+\subsection{GitHub Actions}
+With all of the development effort that has gone into building out the system, there was a need to simplify the deployment process. This process usually involved manually typing long commands in the terminal repetitively as the system iterations happened. The rule of thumb for software engineers is this: if you have to do it more than once, just automate it. This is where GitHub Actions comes into play.\\
 
-\subsubsection{Climate Data Graph}
-
-\subsection{Github Actions}
-With all of the development effort that has gone into building out the system, there was a need to simplify the deployment process. This process usually involved manually typing long commands in the terminal repetitively as the system iterations happened. The rule of thumb for software engineers is this: if you have to do it more than once, just automate it. This is where Github Actions comes into play.\\
-
-Self-explanatory in its name of who the creator is, Github Actions is a platform created to automate workflows. In essence, it is a Continuous Integration (CI) and Continuous Delivery/Deployment (CD) tool for software engineers that want to simplify and reduce repetitive tasks. Github Actions has helped remove the repetitive tasks that involve deploying the source code into production.
+Self-explanatory in its name of who the creator is, GitHub Actions is a platform created to automate workflows. In essence, it is a Continuous Integration (CI) and Continuous Delivery/Deployment (CD) tool for software engineers that want to simplify and reduce repetitive tasks. GitHub Actions has helped remove the repetitive tasks that involve deploying the source code into production.
 
 \begin{figure}[H]
-	\begin{figure}[H]
-		\lstinputlisting[firstline=1,lastline=9]{../.github/workflows/master-workflow.yml}
-		\caption{Part-one master-workflow.yml}
-		\label{fig:workflow-file-one}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[firstline=1,lastline=9]{../.github/workflows/master-workflow.yml}
+        \caption{Part-one master-workflow.yml}
+        \label{fig:workflow-file-one}
+    \end{figure}
 \end{figure}
 
 Figure~\ref{fig:workflow-file-one} shows the \textbf{master-workflow.yml} containing the instructions to run on a push to the Master branch and only when functions directory's contents have been changed. Otherwise, the automated pipeline does not run. The reason for this is because the serverless functions are the only concern in terms of deployment.
 
 \begin{figure}[H]
-	\begin{figure}[H]
-		\lstinputlisting[firstline=10,lastline=35]{../.github/workflows/master-workflow.yml}
-		\caption{Part-two master-workflow.yml}
-		\label{fig:workflow-file-two}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[firstline=10,lastline=35]{../.github/workflows/master-workflow.yml}
+        \caption{Part-two master-workflow.yml}
+        \label{fig:workflow-file-two}
+    \end{figure}
 \end{figure}
 
-Figure~\ref{fig:workflow-file-two} shows the setup portion of the workflow that runs after the workflow trigger criteria is met as a result of the workflow defined in Figure~\ref{fig:workflow-file-one}. This will check out the source code, setup Python and run the Python code formatter as well as the code linter, and then finish up by gaining API access to Google Cloud Platform. The secrets that are needed to gain this access is stored within Github, and will only be retrieved at runtime for security purposes. At any point that any of these steps fail, it will stop the whole pipeline and throw an error.\\
+Figure~\ref{fig:workflow-file-two} shows the setup portion of the workflow that runs after the workflow trigger criteria is met as a result of the workflow defined in Figure~\ref{fig:workflow-file-one}. This will check out the source code, setup Python and run the Python code formatter as well as the code linter, and then finish up by gaining API access to Google Cloud Platform. The secrets that are needed to gain this access is stored within GitHub, and will only be retrieved at runtime for security purposes. At any point that any of these steps fail, it will stop the whole pipeline and throw an error.\\
 
-The actual deployment shown in Figure~\ref{fig:workflow-file-three} is the key point of the automated pipeline. Each of the serverless functions that exist within the functions directory will be deployed and associated with each of their respective Google PubSub topics. This portion takes the longest but since it is automated, it makes deployment much faster and easier. In summary, no more manual setup and deployments in the terminal.
+The actual deployment is shown in Figure~\ref{fig:workflow-file-three} is the key reason for the automated pipeline. Each of the serverless functions that exist within the functions directory will be deployed and associated with each of their respective Google PubSub topics. This portion takes the longest but since it is automated, it makes deployment much faster and easier. In summary, no more manual setup and deployments in the terminal.
 
 \begin{figure}[H]
-	\begin{figure}[H]
-		\lstinputlisting[firstline=36,lastline=65]{../.github/workflows/master-workflow.yml}
-		\caption{Part-three master-workflow.yml}
-		\label{fig:workflow-file-three}
-	\end{figure}
+    \begin{figure}[H]
+        \lstinputlisting[firstline=36,lastline=65]{../.github/workflows/master-workflow.yml}
+        \caption{Part-three master-workflow.yml}
+        \label{fig:workflow-file-three}
+    \end{figure}
 \end{figure}
 
 It is crucial to point out the inherent benefit of building an automated workflow on such a platform, that is, idempotency. Machines only run the instructions they have been given and nothing more. It means that an engineer can expect the same results whenever their pipeline runs. Figure~\ref{fig:workflow-visual} is a visual for engineers to see the automated pipeline step by step that ran after a push to the Master branch.\\
 
 \begin{figure}[H]
-	\center
-	\includegraphics[width=\textwidth]{images/github-actions.png}
-	\caption{Github Actions Workflow Visual}
-	\label{fig:workflow-visual}
+    \center
+    \includegraphics[width=\textwidth]{images/github-actions.png}
+    \caption{GitHub Actions Workflow Visual}
+    \label{fig:workflow-visual}
 \end{figure}
 
 \section{Discussion}
 It was quite a difficult experience integrating all the hardware and technology stack used in the Cloud Temperature \& Humidity Notification System. This was especially true of Google Cloud Platform because while there was extensive documentation on their services, Google is a company known for renaming, rebranding, and deploying new services often. As one can imagine, that makes it difficult to discern what was changed, what to look for, and what to use. Their documentation is not very well organized as concepts and subconcepts of a particular service are scattered throughout the website. Ironically enough, it was more efficient -- though not exactly pleasant -- to Google search for what I needed than navigating through the Google Cloud Platform documentation.\\
 
-Aside from the obvious pitfall of the documentation, Google Cloud Platform is powerful. Google manages and reduces a lot of work that would otherwise be placed as responsibility for a software engineer. As engineers, it is only natural to selectively point out aspects of a system that are nuances but truly software is a collection of reused code that makes life easier for them. Take Google Cloud functions for example, an engineer only has to write the code to handle incoming events and Google manages the rest. The rest comprising of buying, maintaining, and upgrading hardware to host servers for computational needs, developing security practices around the serverless functions, developing logging abilities on all existing functions, and the list just goes on.\\
+Aside from the obvious pitfall of the documentation, Google Cloud Platform is powerful. Google manages and reduces a lot of work that would otherwise be placed as responsibility for a software engineer. As engineers, it is only natural to selectively point out aspects of a system that are nuances but truly software is a collection of reused code that makes life easier for them. Take Google Cloud functions, for example, an engineer only has to write the code to handle incoming events and Google manages the rest. The rest comprising of buying, maintaining and upgrading hardware to host servers for computational needs, developing security practices around the serverless functions, developing logging abilities on all existing functions, and the list just goes on.\\
 
-As we are on the topic of serverless functions, I believe it is important to point out that they were the big driver behind much of the background processing necessary to create the system. A lot of the other cloud servicse played a role but I feel that Google Cloud Functions played the most prominent role. Serverless functions are relatively new to the software engineering field, which was popularized initially by Amazon Web Services when they released their Lambda functions in 2014. Since then it has gained traction and understandably so. Unlike the traditional approach of an always-on server -- hence the word \textit{serverless} in serverless functions -- there is very little operational overhead to speak of. I believe that this is the way of the future for software and especially IoT.\\
+As we are on the topic of serverless functions, I believe it is important to point out that they were the big driver behind much of the background processing necessary to create the system. A lot of the other cloud services played a role but I feel that Google Cloud Functions played the most prominent role. Serverless functions are relatively new to the software engineering field, which was popularized initially by Amazon Web Services when they released their Lambda functions in 2014. Since then it has gained traction and understandably so. Unlike the traditional approach of an always-on server -- hence the word \textit{serverless} in serverless functions -- there is very little operational overhead to speak of. I believe that this is the way of the future for software and especially IoT.\\
 
 The results of the Cloud Temperature \& Humidity Notification System developed was possible due to the collective knowledge of many industries and intellectuals put together. That is something to be proud of.
 
