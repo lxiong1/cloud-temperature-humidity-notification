@@ -6,7 +6,7 @@
 \contentsline {subsection}{\numberline {3.3}Proteus AMBIO}{5}{subsection.3.3}%
 \contentsline {section}{\numberline {4}System Overview}{5}{section.4}%
 \contentsline {subsection}{\numberline {4.1}System Requirements}{5}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Event-Driven Architecture}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.2}Event-Driven Architecture}{6}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Process and Implementation}{6}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Hardware Components}{7}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Particle Argon and Particle Cloud}{8}{subsection.5.2}%

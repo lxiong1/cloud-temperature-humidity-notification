@@ -44,9 +44,9 @@ The problem trying to be solved is giving the user climate data about their livi
 From market researching, there are a couple of products that have similar functionalities:
 
 \begin{itemize}
-    \item AcuRite 01166M 3-Sensor Indoor Monitoring
-    \item Govee Temperature Humidity Monitor
-    \item Proteus AMBIO
+	\item AcuRite 01166M 3-Sensor Indoor Monitoring
+	\item Govee Temperature Humidity Monitor
+	\item Proteus AMBIO
 \end{itemize}
 
 All three of these products measure temperature and humidity and have their value propositions. We'll take a look at what they do and how they differ from this system.
@@ -69,38 +69,45 @@ This section will describe the minimum viable product requirements and the archi
 To satisfy the need of giving a user useful information about temperature and humidity in their targeted environment, the following are the minimum viable product requirements:
 
 \begin{itemize}
-    \item All notifications sent to the user shall be an SMS message
-    \item Notifications sent to the user shall be based on the following criteria
-          \begin{itemize}
-              \item Temperature upper threshold shall be set to lesser than or equal to 75 degrees Fahrenheit
-              \item Temperature lower threshold shall be set to greater than or equal to 65 degrees Fahrenheit
-              \item Humidity upper threshold shall be set to lesser than or equal to 60 percent relative humidity
-              \item Humidity lower threshold shall be set to greater than or equal to 30 percent relative humidity
-          \end{itemize}
-    \item Minimum 1-hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below the threshold value
-    \item Check device status every hour
-    \item
+	\item All notifications sent to the user shall be an SMS message
+	\item Notifications sent to the user shall be based on the following criteria
+	      \begin{itemize}
+		      \item Temperature upper threshold shall be set to lesser than or equal to 75 degrees Fahrenheit
+		      \item Temperature lower threshold shall be set to greater than or equal to 65 degrees Fahrenheit
+		      \item Humidity upper threshold shall be set to lesser than or equal to 60 percent relative humidity
+		      \item Humidity lower threshold shall be set to greater than or equal to 30 percent relative humidity
+	      \end{itemize}
+	\item Minimum 1-hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below the threshold value
+	\item The status of the device publishing temperature and humidity data must be checked every hour
+	      \begin{itemize}
+		      \item When device is online, nothing shall happen
+		      \item When device is offline, user shall be notified
+	      \end{itemize}
+    \item Working hours shall be defined as 6 AM to 9 PM CDT
+    \item Device shall publish every 15 minutes during the working hours
+    \item Device shall publish every 30 minutes during the non-working hours
+    \item System shall create a daily graph aggregating temperature and humidity averages over days at 9 PM CDT
 \end{itemize}
 
 \subsection{Event-Driven Architecture}
 The approach taken for the system as mentioned before is heavy on the software side which manifests into an event-driven serverless architecture. An event-driven serverless architecture in the system context allows the climate data readings to be sent as events, processed based on its event type, and have actions performed without the need for standing up servers. The following are benefits of the said architecture:
 
 \begin{itemize}
-    \item Loose coupling between software components
-    \item Automatically scale based on user demand
-    \item All processing is driven by events
-    \item No need for management of servers
-    \item Inherent stateless nature
-    \item Overall cost reduction versus managed servers
+	\item Loose coupling between software components
+	\item Automatically scale based on user demand
+	\item All processing is driven by events
+	\item No need for management of servers
+	\item Inherent stateless nature
+	\item Overall cost reduction versus managed servers
 \end{itemize}
 
 While these benefits are good to have, every architectural decision has its drawbacks. The following  are drawbacks of the said architecture:
 
 \begin{itemize}
-    \item Each serverless function must provide its own packaged dependencies
-    \item Having a large number of serverless functions can become unwieldy
-    \item Long-running processes are not fit for serverless functions
-    \item Handling system state amongst stateless functions can be tricky
+	\item Each serverless function must provide its own packaged dependencies
+	\item Having a large number of serverless functions can become unwieldy
+	\item Long-running processes are not fit for serverless functions
+	\item Handling system state amongst stateless functions can be tricky
 \end{itemize}
 
 Using an event-driven serverless architecture made sense for this system, as the needs of the system are fulfilled automatically on publishing data without any manual intervention.
@@ -111,20 +118,20 @@ I will preface that the Cloud Temperature \& Humidity Notification System is hea
 \subsection{Hardware Components}
 \label{section:hardware}
 \begin{figure}[H]
-    \center
-    \includegraphics[width=\textwidth]{images/breadboard-schematic.png}
-    \caption{Breadboard Schematic}
-    \label{fig:breadboard_schematic}
+	\center
+	\includegraphics[width=\textwidth]{images/breadboard-schematic.png}
+	\caption{Breadboard Schematic}
+	\label{fig:breadboard_schematic}
 \end{figure}
 
 Figure~\ref{fig:breadboard_schematic} comprises the following hardware components:
 
 \begin{itemize}
-    \item Particle Argon — IoT development kit for connecting and sending information over the network
-    \item Adafruit Si7021 — Temperature and humidity sensor breakout board
-    \item Breadboard — Base to create circuits and prototype electronics
-    \item Jumper Wires — Cables able to connect components
-    \item Lithium Ion Polymer Battery 1000 mAh — A power source for the connected components
+	\item Particle Argon — IoT development kit for connecting and sending information over the network
+	\item Adafruit Si7021 — Temperature and humidity sensor breakout board
+	\item Breadboard — Base to create circuits and prototype electronics
+	\item Jumper Wires — Cables able to connect components
+	\item Lithium Ion Polymer Battery 1000 mAh — A power source for the connected components
 \end{itemize}
 
 \newpage
@@ -133,31 +140,31 @@ Figure~\ref{fig:breadboard_schematic} comprises the following hardware component
 Particle Argon is flashed with firmware written with C code. It is used with Particle's API and the Adafruit Si7021 helper library. Understanding the Particle ecosystem's role in the system will reveal the scope of its interactions in the event-driven serverless architectural decision.
 
 \begin{minipage}[c]{\textwidth}
-    \begin{figure}[H]
-        \lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
-        \caption{setup() function}
-        \label{fig:setup}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=9,lastline=12]{../src/particle-argon-temperature-humidity.ino}
+		\caption{setup() function}
+		\label{fig:setup}
+	\end{figure}
 \end{minipage}\ \\\\
 
 The \textbf{setup()} as shown in Figure~\ref{fig:setup} is important here for two reasons. The first part is that the Particle Argon is in default timezone of Universal Time Coordinated (UTC) which differs from the timezone I live in is Central Daylight Time (CDT). To be able to represent the timezone difference, setting the default timezone with an offset of minus 5 hours is required. The second part is making sure that the Adafruit Si7021 is enabled after being initialized because it is the central piece for reading ambient temperature and relative humidity from a given environment.
 
 \begin{minipage}[c]{\textwidth}
-    \begin{figure}[H]
-        \lstinputlisting[language=C,firstline=14,lastline=37]{../src/particle-argon-temperature-humidity.ino}
-        \caption{loop() function}
-        \label{fig:loop}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=14,lastline=37]{../src/particle-argon-temperature-humidity.ino}
+		\caption{loop() function}
+		\label{fig:loop}
+	\end{figure}
 \end{minipage}\ \\\\
 
 In Figure~\ref{fig:loop}, the \textbf{loop()} function shows that temperature and humidity are being read with the sensor object. They are then used as values to publish to the Particle Cloud. From that point on they are passed to Google Cloud Platform. However, there will be a further explanation of how this integration works and what processes happen on the Google Cloud Platform in Section~\ref{section:gcp}.
 
 \begin{minipage}[c]{\textwidth}
-    \begin{figure}[H]
-        \lstinputlisting[language=C,firstline=39,lastline=55]{../src/particle-argon-temperature-humidity.ino}
-        \caption{isEndOfDay() function}
-        \label{fig:endofday}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[language=C,firstline=39,lastline=55]{../src/particle-argon-temperature-humidity.ino}
+		\caption{isEndOfDay() function}
+		\label{fig:endofday}
+	\end{figure}
 \end{minipage}\ \\\\
 
 Beyond publishing the climate values, the \textbf{loop()} function checks whether the day has ended from the perspective of the system. The end of the day is defined as code in Figure~\ref{fig:endofday}. Before it was mentioned that a UTC offset of minus 5 hours was applied in the \textbf{setup()} function, and this is where it comes into context. The end of the day is 9 PM CDT, which is equivalent to 21 in a 24-hour format. Once the system understands that it is the end of the day, an event is published to update a file containing daily climate average aggregates for the day. To understand the update itself will require digging into the Google Cloud Platform integration. As written before, this will be further explained in Section~\ref{section:gcp}.\\
@@ -189,21 +196,21 @@ With all of the development effort that has gone into building out the system, t
 Self-explanatory in its name of who the creator is, Github Actions is a platform created to automate workflows. In essence, it is a Continuous Integration (CI) and Continuous Delivery/Deployment (CD) tool for software engineers that want to simplify and reduce repetitive tasks. Github Actions has helped remove the repetitive tasks that involve deploying the source code into production.
 
 \begin{figure}[H]
-    \begin{figure}[H]
-        \lstinputlisting[firstline=1,lastline=9]{../.github/workflows/master-workflow.yml}
-        \caption{Part-one master-workflow.yml}
-        \label{fig:workflow-file-one}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[firstline=1,lastline=9]{../.github/workflows/master-workflow.yml}
+		\caption{Part-one master-workflow.yml}
+		\label{fig:workflow-file-one}
+	\end{figure}
 \end{figure}
 
 Figure~\ref{fig:workflow-file-one} shows the \textbf{master-workflow.yml} containing the instructions to run on a push to the Master branch and only when functions directory's contents have been changed. Otherwise, the automated pipeline does not run. The reason for this is because the serverless functions are the only concern in terms of deployment.
 
 \begin{figure}[H]
-    \begin{figure}[H]
-        \lstinputlisting[firstline=10,lastline=35]{../.github/workflows/master-workflow.yml}
-        \caption{Part-two master-workflow.yml}
-        \label{fig:workflow-file-two}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[firstline=10,lastline=35]{../.github/workflows/master-workflow.yml}
+		\caption{Part-two master-workflow.yml}
+		\label{fig:workflow-file-two}
+	\end{figure}
 \end{figure}
 
 Figure~\ref{fig:workflow-file-two} shows the setup portion of the workflow that runs after the workflow trigger criteria is met as a result of the workflow defined in Figure~\ref{fig:workflow-file-one}. This will check out the source code, setup Python and run the Python code formatter as well as the code linter, and then finish up by gaining API access to Google Cloud Platform. The secrets that are needed to gain this access is stored within Github, and will only be retrieved at runtime for security purposes. At any point that any of these steps fail, it will stop the whole pipeline and throw an error.\\
@@ -211,20 +218,20 @@ Figure~\ref{fig:workflow-file-two} shows the setup portion of the workflow that 
 The actual deployment shown in Figure~\ref{fig:workflow-file-three} is the key point of the automated pipeline. Each of the serverless functions that exist within the functions directory will be deployed and associated with each of their respective Google PubSub topics. This portion takes the longest but since it is automated, it makes deployment much faster and easier. In summary, no more manual setup and deployments in the terminal.
 
 \begin{figure}[H]
-    \begin{figure}[H]
-        \lstinputlisting[firstline=36,lastline=65]{../.github/workflows/master-workflow.yml}
-        \caption{Part-three master-workflow.yml}
-        \label{fig:workflow-file-three}
-    \end{figure}
+	\begin{figure}[H]
+		\lstinputlisting[firstline=36,lastline=65]{../.github/workflows/master-workflow.yml}
+		\caption{Part-three master-workflow.yml}
+		\label{fig:workflow-file-three}
+	\end{figure}
 \end{figure}
 
 It is crucial to point out the inherent benefit of building an automated workflow on such a platform, that is, idempotency. Machines only run the instructions they have been given and nothing more. It means that an engineer can expect the same results whenever their pipeline runs. Figure~\ref{fig:workflow-visual} is a visual for engineers to see the automated pipeline step by step that ran after a push to the Master branch.\\
 
 \begin{figure}[H]
-    \center
-    \includegraphics[width=\textwidth]{images/github-actions.png}
-    \caption{Github Actions Workflow Visual}
-    \label{fig:workflow-visual}
+	\center
+	\includegraphics[width=\textwidth]{images/github-actions.png}
+	\caption{Github Actions Workflow Visual}
+	\label{fig:workflow-visual}
 \end{figure}
 
 \section{Discussion}
