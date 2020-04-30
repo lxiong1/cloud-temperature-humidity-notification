@@ -37,8 +37,8 @@ The following is the breadboard schematic:
 
 ## SMS Notification
 ### Rules
-- Minimum 1 hour gap between each message per climate type
-- Trigger only between 6AM - 9PM
+- Minimum 1 hour gap between each SMS message per climate type
+- Send SMS message only between 6AM - 9PM
 ### Trigger Criteria
 - Ambient room temperature above 75 degrees Fahrenheit or below 65 degrees Fahrenheit
 - Relative humidity above 60% or below 30%
@@ -47,4 +47,4 @@ The following is the breadboard schematic:
 The results of temperature and humidty readings are calculated for daily averages, and then used at data points in this interactive graph: [![Interactive Graph !](https://img.shields.io/badge/Interactive%20Graph-1abc9c.svg)](http://35.238.110.48:8080)
 
 ## System Processes Explained
-Due to the complexity of the system behind the scenes, it will be wholly explained in this `LaTex` report (work-in-progress): [![Report !](https://img.shields.io/badge/Report-1abc9c.svg)](/latex/cloud-temperature-humidity-notification.pdf)
+Due to the complexity of the system behind the scenes, it will be wholly explained in this `LaTex` report: [![Report !](https://img.shields.io/badge/Report-1abc9c.svg)](/latex/cloud-temperature-humidity-notification.pdf)

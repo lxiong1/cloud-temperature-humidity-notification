@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - 'functions/**'
+    paths:
+      - 'functions/**'
 jobs:
   deploy:
     name: Deploy Trigger Functions to Google Cloud Platform
