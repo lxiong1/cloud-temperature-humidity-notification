@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  29 APR 2020 18:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.3.25)  30 APR 2020 13:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -296,30 +296,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--57
 <images/breadboard-schematic.png, id=157, 363.759pt x 244.915pt>
 File: images/breadboard-schematic.png Graphic file (type png)
 <use images/breadboard-schematic.png>
-Package pdftex.def Info: images/breadboard-schematic.png  used on input line 122.
+Package pdftex.def Info: images/breadboard-schematic.png  used on input line 123.
 (pdftex.def)             Requested size: 345.0pt x 232.28673pt.
  [6]
-Underfull \hbox (badness 10000) in paragraph at lines 127--127
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--129
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--131
+Underfull \hbox (badness 10000) in paragraph at lines 132--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 133--133
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
@@ -331,42 +331,42 @@ File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 9.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 142--148
+Underfull \hbox (badness 10000) in paragraph at lines 144--150
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--148
+Underfull \hbox (badness 10000) in paragraph at lines 144--150
 
  []
 
 (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../src/particle-argon-temperature-humidity.ino)
-Underfull \hbox (badness 10000) in paragraph at lines 152--158
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--158
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
 
  []
 
 [8] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../src/particle-argon-temperature-humidity.ino)
-Underfull \hbox (badness 10000) in paragraph at lines 162--168
+Underfull \hbox (badness 10000) in paragraph at lines 164--170
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--168
+Underfull \hbox (badness 10000) in paragraph at lines 164--170
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 170--170
+Underfull \hbox (badness 10000) in paragraph at lines 172--172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 172--172
+Underfull \hbox (badness 10000) in paragraph at lines 174--174
 
  []
 
@@ -374,149 +374,195 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--172
 <images/interactive-graph.png, id=243, 3850.385pt x 1957.3125pt>
 File: images/interactive-graph.png Graphic file (type png)
 <use images/interactive-graph.png>
-Package pdftex.def Info: images/interactive-graph.png  used on input line 186.
+Package pdftex.def Info: images/interactive-graph.png  used on input line 188.
 (pdftex.def)             Requested size: 345.0pt x 175.37401pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--191
-
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 193--193
 
  []
 
-[11 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/interactive-graph.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 195--195
 
  []
 
-
+[11 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/interactive-graph.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 197--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--199
 
  []
 
 <images/database-contact-attempt-history.png, id=254, 2661.945pt x 568.1225pt>
 File: images/database-contact-attempt-history.png Graphic file (type png)
 <use images/database-contact-attempt-history.png>
-Package pdftex.def Info: images/database-contact-attempt-history.png  used on input line 206.
+Package pdftex.def Info: images/database-contact-attempt-history.png  used on input line 208.
 (pdftex.def)             Requested size: 345.0pt x 73.62445pt.
 <images/database-humidity.png, id=255, 2680.0125pt x 582.175pt>
 File: images/database-humidity.png Graphic file (type png)
 <use images/database-humidity.png>
-Package pdftex.def Info: images/database-humidity.png  used on input line 213.
+Package pdftex.def Info: images/database-humidity.png  used on input line 215.
 (pdftex.def)             Requested size: 345.0pt x 74.93921pt.
 [12 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-contact-attempt-history.png>]
 <images/database-temperature.png, id=264, 2663.9525pt x 582.175pt>
 File: images/database-temperature.png Graphic file (type png)
 <use images/database-temperature.png>
-Package pdftex.def Info: images/database-temperature.png  used on input line 220.
+Package pdftex.def Info: images/database-temperature.png  used on input line 222.
 (pdftex.def)             Requested size: 345.0pt x 75.39226pt.
-<images/pubsub-topics.png, id=265, 2497.33pt x 734.745pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--231
+
+ []
+
+<images/functions.png, id=267, 3121.6625pt x 716.6775pt>
+File: images/functions.png Graphic file (type png)
+<use images/functions.png>
+Package pdftex.def Info: images/functions.png  used on input line 235.
+(pdftex.def)             Requested size: 345.0pt x 79.19563pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--240
+
+ []
+
+[13 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-humidity.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-temperature.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/functions.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 242--242
+
+ []
+
+<images/generic-temperature-humidity-flow.png, id=280, 964.60374pt x 70.2625pt>
+File: images/generic-temperature-humidity-flow.png Graphic file (type png)
+<use images/generic-temperature-humidity-flow.png>
+Package pdftex.def Info: images/generic-temperature-humidity-flow.png  used on input line 246.
+(pdftex.def)             Requested size: 345.0pt x 25.12936pt.
+<images/climate-event-flow.png, id=283, 1507.6325pt x 532.99126pt>
+File: images/climate-event-flow.png Graphic file (type png)
+<use images/climate-event-flow.png>
+Package pdftex.def Info: images/climate-event-flow.png  used on input line 255.
+(pdftex.def)             Requested size: 345.0pt x 121.96732pt.
+<images/graph-event-flow.png, id=285, 1507.6325pt x 864.22874pt>
+File: images/graph-event-flow.png Graphic file (type png)
+<use images/graph-event-flow.png>
+Package pdftex.def Info: images/graph-event-flow.png  used on input line 264.
+(pdftex.def)             Requested size: 345.0pt x 197.7662pt.
+[14 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/generic-temperature-humidity-flow.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/climate-event-flow.png>]
+Overfull \hbox (6.13812pt too wide) in paragraph at lines 269--269
+[]\OT1/cmr/m/n/10 To up-date the in-ter-ac-tive graph []$\OT1/cmtt/m/n/10 http : / / 35 . 238 . 110 . 48 : 8080$[]\OT1/cmr/m/n/10 , Fig-ure  []12[] demon-
+ []
+
+<images/device-status-event-flow.png, id=298, 1506.62875pt x 372.39125pt>
+File: images/device-status-event-flow.png Graphic file (type png)
+<use images/device-status-event-flow.png>
+Package pdftex.def Info: images/device-status-event-flow.png  used on input line 273.
+(pdftex.def)             Requested size: 345.0pt x 85.26747pt.
+[15 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/graph-event-flow.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/device-status-event-flow.png>]
+<images/pubsub-topics.png, id=309, 2497.33pt x 734.745pt>
 File: images/pubsub-topics.png Graphic file (type png)
 <use images/pubsub-topics.png>
-Package pdftex.def Info: images/pubsub-topics.png  used on input line 238.
+Package pdftex.def Info: images/pubsub-topics.png  used on input line 286.
 (pdftex.def)             Requested size: 345.0pt x 101.49582pt.
- [13 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-humidity.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/database-temperature.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 243--243
+
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--245
+Underfull \hbox (badness 10000) in paragraph at lines 293--293
 
  []
 
-<images/scheduler.png, id=276, 2433.09pt x 425.59pt>
+[16 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/pubsub-topics.png>]
+<images/scheduler.png, id=319, 2433.09pt x 425.59pt>
 File: images/scheduler.png Graphic file (type png)
 <use images/scheduler.png>
-Package pdftex.def Info: images/scheduler.png  used on input line 272.
+Package pdftex.def Info: images/scheduler.png  used on input line 325.
 (pdftex.def)             Requested size: 345.0pt x 60.34198pt.
-[14 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/pubsub-topics.png>]
-<images/secret-manager.png, id=304, 3850.385pt x 1031.855pt>
+ [17 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/scheduler.png>]
+<images/secret-manager.png, id=346, 3850.385pt x 1031.855pt>
 File: images/secret-manager.png Graphic file (type png)
 <use images/secret-manager.png>
-Package pdftex.def Info: images/secret-manager.png  used on input line 284.
+Package pdftex.def Info: images/secret-manager.png  used on input line 340.
 (pdftex.def)             Requested size: 345.0pt x 92.45357pt.
- [15 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/scheduler.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/secret-manager.png>]
-<images/storage.png, id=316, 3830.31pt x 889.3225pt>
+<images/storage.png, id=351, 3830.31pt x 889.3225pt>
 File: images/storage.png Graphic file (type png)
 <use images/storage.png>
-Package pdftex.def Info: images/storage.png  used on input line 296.
+Package pdftex.def Info: images/storage.png  used on input line 352.
 (pdftex.def)             Requested size: 345.0pt x 80.08984pt.
-
-Overfull \hbox (0.93361pt too wide) in paragraph at lines 301--301
+ [18 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/secret-manager.png>]
+Overfull \hbox (0.93361pt too wide) in paragraph at lines 357--357
 []\OT1/cmr/m/n/10 The first file is called \OT1/cmr/bx/n/10 cli-mate[]data[]aggregate.csv \OT1/cmr/m/n/10 and its con-tents are comma-
  []
 
-<images/climate-data-csv.png, id=318, 650.43pt x 626.34pt>
+<images/climate-data-csv.png, id=359, 650.43pt x 626.34pt>
 File: images/climate-data-csv.png Graphic file (type png)
 <use images/climate-data-csv.png>
-Package pdftex.def Info: images/climate-data-csv.png  used on input line 305.
+Package pdftex.def Info: images/climate-data-csv.png  used on input line 361.
 (pdftex.def)             Requested size: 207.0021pt x 199.33382pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 311--311
+Underfull \hbox (badness 10000) in paragraph at lines 367--367
 
  []
 
-[16 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/storage.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/climate-data-csv.png>] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml
+[19 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/storage.png> </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/climate-data-csv.png>] (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 33.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)) [17]
-Underfull \hbox (badness 10000) in paragraph at lines 333--333
+)) [20]
+Underfull \hbox (badness 10000) in paragraph at lines 389--389
 
  []
 
-(/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) [18]
-Underfull \hbox (badness 10000) in paragraph at lines 345--345
+(/home/luexiong/projects/cloud-temperature-humidity-notification/latex/../.github/workflows/master-workflow.yml) [21]
+Underfull \hbox (badness 10000) in paragraph at lines 401--401
 
  []
 
-[19]
-<images/github-actions.png, id=418, 3810.235pt x 1933.2225pt>
+[22]
+<images/github-actions.png, id=459, 3810.235pt x 1933.2225pt>
 File: images/github-actions.png Graphic file (type png)
 <use images/github-actions.png>
-Package pdftex.def Info: images/github-actions.png  used on input line 349.
+Package pdftex.def Info: images/github-actions.png  used on input line 405.
 (pdftex.def)             Requested size: 345.0pt x 175.04446pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 411--411
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 357--357
+Underfull \hbox (badness 10000) in paragraph at lines 413--413
 
  []
 
-[20 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/github-actions.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 359--359
+[23 </home/luexiong/projects/cloud-temperature-humidity-notification/latex/images/github-actions.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 366.
-[21]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 366.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 422.
+[24]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 422.
  (/home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 366.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 366.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 422.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 422.
 Package rerunfilecheck Info: File `cloud-temperature-humidity-notification.out' has not changed.
-(rerunfilecheck)             Checksum: 5FC768098C364C7E5BBFB168C11A3D1B;1600.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 366.
+(rerunfilecheck)             Checksum: EB1B960D329BF5125523ABED41BF43BD;1600.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 422.
  ) 
 Here is how much of TeX's memory you used:
- 7879 strings out of 481239
- 121575 string characters out of 5920377
- 750310 words of memory out of 5000000
- 22807 multiletter control sequences out of 15000+600000
+ 7928 strings out of 481239
+ 122835 string characters out of 5920377
+ 750995 words of memory out of 5000000
+ 22842 multiletter control sequences out of 15000+600000
  537907 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  34i,6n,53p,1159b,1446s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (21 pages, 1561541 bytes).
+Output written on /home/luexiong/projects/cloud-temperature-humidity-notification/latex/cloud-temperature-humidity-notification.pdf (24 pages, 1911106 bytes).
 PDF statistics:
- 506 PDF objects out of 1000 (max. 8388607)
- 447 compressed objects within 5 object streams
- 198 named destinations out of 1000 (max. 500000)
- 248 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 549 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
+ 207 named destinations out of 1000 (max. 500000)
+ 273 words of extra memory for PDF output out of 10000 (max. 10000000)
 
