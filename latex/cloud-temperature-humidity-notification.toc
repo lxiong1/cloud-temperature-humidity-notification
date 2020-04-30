@@ -15,10 +15,10 @@
 \contentsline {subsubsection}{\numberline {5.3.2}Firestore}{15}{subsubsection.5.3.2}%
 \contentsline {subsubsection}{\numberline {5.3.3}Functions}{16}{subsubsection.5.3.3}%
 \contentsline {subsubsection}{\numberline {5.3.4}PubSub}{19}{subsubsection.5.3.4}%
-\contentsline {subsubsection}{\numberline {5.3.5}Scheduler}{20}{subsubsection.5.3.5}%
-\contentsline {subsubsection}{\numberline {5.3.6}Identity and Access Management}{20}{subsubsection.5.3.6}%
-\contentsline {subsubsection}{\numberline {5.3.7}Secret Manager}{21}{subsubsection.5.3.7}%
-\contentsline {subsubsection}{\numberline {5.3.8}Storage}{21}{subsubsection.5.3.8}%
-\contentsline {subsection}{\numberline {5.4}GitHub Actions}{22}{subsection.5.4}%
-\contentsline {section}{\numberline {6}Discussion}{26}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{27}{section.7}%
+\contentsline {subsubsection}{\numberline {5.3.5}Scheduler}{21}{subsubsection.5.3.5}%
+\contentsline {subsubsection}{\numberline {5.3.6}Identity and Access Management}{21}{subsubsection.5.3.6}%
+\contentsline {subsubsection}{\numberline {5.3.7}Secret Manager}{22}{subsubsection.5.3.7}%
+\contentsline {subsubsection}{\numberline {5.3.8}Storage}{22}{subsubsection.5.3.8}%
+\contentsline {subsection}{\numberline {5.4}GitHub Actions}{23}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Discussion}{27}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{28}{section.7}%

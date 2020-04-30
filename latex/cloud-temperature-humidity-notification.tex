@@ -327,6 +327,15 @@ To update the interactive graph \url{http://35.238.110.48:8080}, Figure ~\ref{fi
 
 This is where the Google Cloud Scheduler explained in Section~\ref{section:scheduler} is used. Every hour of the working day -- defined as 6 AM to 9 PM CDT, the Scheduler will send a message to the "device-status" topic and check whether the Particle Argon is offline or online. Figure~\ref{fig:device-status-event-flow} goes into detail of what that event flow looks like.\\
 
+As a real example of the scheduler working, Figure~\ref{fig:notifications} shows that at 10 AM, there was a notification sent from \textbf{gcp.sms.robot@gmail.com} stating that the Particle Argon has not been sending any climate readings, meaning that it is in an offline status. The same figure also shows that after getting the Particle Argon back to an online status, it was able to detect the relative humidity below the 30 percent threshold, which was sent multiple times after 10 AM.\\
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=.4\textwidth]{images/sms-notifications.png}
+	\caption{SMS Notifications}
+	\label{fig:notifications}
+\end{figure}
+
 As a late note on this section, code was not specifically covered in here due to the large amount of code. Also it was not necessary as the diagrams explain what the serverless functions code does. However all Python code written for the serverless functions can be found here:\\
 
 \url{https://github.com/lxiong1/cloud-temperature-humidity-notification/tree/master/functions}
