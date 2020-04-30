@@ -44,6 +44,7 @@ The problem trying to be solved is giving the user climate data about their livi
 From market researching, there are a couple of products that have similar functionalities:
 
 \begin{itemize}
+    \setlength{\itemindent}{.3in}
     \item AcuRite 01166M 3-Sensor Indoor Monitoring
     \item Govee Temperature Humidity Monitor
     \item Proteus AMBIO
@@ -69,9 +70,11 @@ This section will describe the minimum viable product requirements and the archi
 To satisfy the need of giving a user useful information about temperature and humidity in their targeted environment, the following are the minimum viable product requirements:
 
 \begin{itemize}
+    \setlength{\itemindent}{.3in}
     \item All notifications sent to the user shall be an SMS message
     \item Notifications sent to the user shall be based on the following criteria
           \begin{itemize}
+            \setlength{\itemindent}{.5in}
               \item Temperature upper threshold shall be set to lesser than or equal to 75 degrees Fahrenheit
               \item Temperature lower threshold shall be set to greater than or equal to 65 degrees Fahrenheit
               \item Humidity upper threshold shall be set to lesser than or equal to 60 percent relative humidity
@@ -80,6 +83,7 @@ To satisfy the need of giving a user useful information about temperature and hu
     \item Minimum 1-hour gap in between each SMS message per climate type (AKA temperature and humidity) reaching above or below the threshold value
     \item The status of the device publishing temperature and humidity data must be checked every hour
           \begin{itemize}
+            \setlength{\itemindent}{.5in}
               \item When the device is online, nothing shall happen
               \item When the device is offline, the user shall be notified
           \end{itemize}
@@ -94,6 +98,7 @@ To satisfy the need of giving a user useful information about temperature and hu
 The approach taken for the system as mentioned before is heavy on the software side and manifested into an event-driven serverless architecture. An event-driven serverless architecture in the system context allows the climate data readings to be sent as events, processed based on its event type, and have actions performed without the need for standing up servers. The following are benefits of the said architecture:
 
 \begin{itemize}
+    \setlength{\itemindent}{.3in}
     \item Loose coupling between software components
     \item Automatic scaling based on user demand
     \item All processing is driven by events
@@ -105,6 +110,7 @@ The approach taken for the system as mentioned before is heavy on the software s
 While these benefits are good to have, every architectural decision has its drawbacks. The following  are drawbacks of the said architecture:
 
 \begin{itemize}
+    \setlength{\itemindent}{.3in}
     \item Each serverless function must provide its own packaged dependencies
     \item Having a large number of serverless functions can become unwieldy
     \item Long-running processes are not fit for serverless functions
