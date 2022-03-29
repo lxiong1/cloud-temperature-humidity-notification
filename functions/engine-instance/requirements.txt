@@ -1,2 +1,2 @@
 google-cloud-secret-manager==0.2.0
-paramiko==2.7.1
+paramiko==2.10.1
